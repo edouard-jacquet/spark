@@ -28,6 +28,7 @@
 			</div>
 		</header>
 		<section id='body' class='body'>
+			<c:import url="include/notification.jsp"/>
 			<div class='grid'>
 				<div class='row'>
 					<div class='column small-12 medium-6 medium--centered large-4'>
@@ -47,7 +48,7 @@
 											<label class='form__label small-only--show' for=''>User</label>
 											<div class='input-group'>
 												<span class='input-group__addon'><span class='bootypo bootypo--user'></span></span>
-												<input class='form__control' type='text' name='user'/></input>
+												<input class='form__control' type='text' name='login'/></input>
 											</div>
 										</div>
 									</div>
