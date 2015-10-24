@@ -1,0 +1,41 @@
+/* ============================== *\
+   => HOME
+\* ============================== */
+
+
+@keyframes spark {
+	50%{
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 -1px 0 rgba(0, 0, 0, 0.5);
+	}
+	75% {
+		text-shadow: 0 0 5px rgba(251, 255, 220, 1), 0 -1px 0 rgba(0, 0, 0, 0.5), 0 0 30px rgba(251, 255, 220, 1);
+	}
+	100% {
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 -1px 0 rgba(0, 0, 0, 0.5);
+	}
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: #000;
+	background-image: url('../image/chemistry.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.body {
+	padding-top: 10%;
+}
+
+.letter {
+	font-family: 'chemistry-bubble';
+	font-size: 96px;
+	letter-spacing: 10px;
+	color: rgba(0, 0, 0, 0.2);
+	text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 -1px 0 rgba(0, 0, 0, 0.5);
+	animation: spark 2s linear 0s infinite;
+}
