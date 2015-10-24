@@ -1,0 +1,19 @@
+/* ============================== *\
+   => LOGIN
+\* ============================== */
+
+
+.panel__icon {
+	padding: 20px;
+	border-radius: 50%;
+	border: 1px solid #9d9d9d;
+	background: #fafafa;
+	font-size: 64px;
+	color: #d5d5d5;
+}
+
+@media only screen and (min-width: 640px) {
+	.panel-login {
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	}
+}
