@@ -60,7 +60,7 @@ $(document).ready(function() {
 			this._callbackClose();
 		},
 		_callbackClose: function() {
-			$('.notification__close').bind('click', function(e) {
+			$('body').on('click', '.notification__close', function(e) {
 				e.preventDefault();
 				var trigger = $(this);
 				var container = $(trigger).parents('.notification');
@@ -79,5 +79,5 @@ $(document).ready(function() {
 	}
 })(jQuery, window, document);
 $(document).ready(function() {
-	$('.notification').notification();
+	$(document).notification();
 });
