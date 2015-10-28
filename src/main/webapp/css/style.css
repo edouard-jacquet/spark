@@ -58,6 +58,12 @@ body {
 	letter-spacing: 3px;
 }
 
+.navigation-bar__nav .bootypo {
+	font-size: 28px;
+	margin-top: -9px;
+	margin-right: 5px;
+}
+
 .row--bottom-5 {
 	margin-bottom: 5px;
 }
@@ -80,4 +86,10 @@ body {
 
 .row--bottom-30 {
 	margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 640px) {
+	.navigation-bar__nav {
+		margin-right: 15px;
+	}
 }
