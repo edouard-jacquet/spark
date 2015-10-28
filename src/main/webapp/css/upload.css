@@ -1,0 +1,42 @@
+/* ============================== *\
+   => UPLOAD
+\* ============================== */
+
+
+.panel__icon {
+	padding: 20px;
+	border-radius: 50%;
+	border: 1px solid #9d9d9d;
+	background: #fafafa;
+	font-size: 64px;
+	color: #d5d5d5;
+}
+
+.drop {
+	width: 100%;
+	border: 3px dashed #cdcdcd;
+}
+
+.drop__instruction {
+	width: 100%;
+	display: block;
+	padding-top: 25%;
+	padding-bottom: 25%;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	color: #cdcdcd;
+}
+
+.drop.dropped {
+	border-color: #9d9d9d;
+	background-color: #fafafa; 
+}
+
+.progress-container {
+	margin-bottom: 0;
+}
+
+.drop.dropped > .drop__instruction {
+	color: #9d9d9d;
+}

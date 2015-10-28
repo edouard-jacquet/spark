@@ -1,8 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:if test="${notifications != null && notifications.size() > 0}">
-	<div class='grid'>
+<div id='notifications' class='grid notifications'>
+	<c:if test="${notifications != null && notifications.size() > 0}">
 		<c:forEach var="notification" items="${notifications}">
 			<div class='row'>
 				<div class='column small-12'>
@@ -13,5 +13,5 @@
 				</div>
 			</div>
 		</c:forEach>
-	</div>
-</c:if>
+	</c:if>
+</div>
