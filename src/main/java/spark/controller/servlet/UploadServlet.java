@@ -13,7 +13,7 @@ import spark.exception.UploadException;
 import spark.model.manager.ManageResource;
 import spark.model.manager.ManageUser;
 
-@WebServlet("/upload")
+@WebServlet("/resource/upload")
 @MultipartConfig
 public class UploadServlet extends HttpServlet {
 	
@@ -23,7 +23,7 @@ private static final long serialVersionUID = 1L;
 		ManageUser manageUser = new ManageUser();
 		manageUser.hasCookie(request, response);
 		if(manageUser.isLogged(request)) {
-			request.getRequestDispatcher("jsp/upload.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/upload.jsp").forward(request, response);
 		}
 		else {
 			response.sendRedirect(request.getContextPath() + "/login");
@@ -40,7 +40,7 @@ private static final long serialVersionUID = 1L;
 			request.setAttribute("notifications", manageResource.getNotifications());
 		}
 		finally {
-			request.getRequestDispatcher("jsp/upload.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/upload.jsp").forward(request, response);
 		}
 	}
 	
