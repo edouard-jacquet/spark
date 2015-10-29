@@ -51,7 +51,7 @@ public class ManageUser extends Manager {
 		user.setLogin(login);
 		user.setPassword(password);
 		user.setKey(Random.generate(160));
-		if(userDAO.create(user) != null) {
+		if(userDAO.create(user) == null) {
 			notifications.add(new Notification("alert", "User hasn't been created."));
 			throw new UserNotCreatedException();
 		}
