@@ -81,6 +81,6 @@ function upload(files, index) {
 	
 	$('#progress-upload').css('width', 0).html('0%').addClass('active');
 	
-	xhr.open('post','xhr-upload', true);
+	xhr.open('post', context +'/resource/xhr-upload', true);
 	xhr.send(formData);
 }

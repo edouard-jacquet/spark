@@ -9,13 +9,13 @@
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<title>Upload - Spark</title>
-		<link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
-		<link rel='stylesheet' type='text/css' href='css/style.css'>
-		<link rel='stylesheet' type='text/css' href='css/upload.css'>
-		<script src='js/jquery.js'></script>
-		<script src='js/bootstrap.js'></script>
-		<script src='js/script.js'></script>
-		<script src='js/upload.js'></script>
+		<link rel='stylesheet' type='text/css' href='${context}/css/bootstrap.css'>
+		<link rel='stylesheet' type='text/css' href='${context}/css/style.css'>
+		<link rel='stylesheet' type='text/css' href='${context}/css/upload.css'>
+		<script src='${context}/js/jquery.js'></script>
+		<script src='${context}/js/bootstrap.js'></script>
+		<script src='${context}/js/script.js'></script>
+		<script src='${context}/js/upload.js'></script>
 	</head>
 
 	<body>
@@ -23,7 +23,7 @@
 			<div class='navigation-bar navigation-bar--inverse'>
 				<div class='navigation-bar__header'>
 					<button class='button navigation-bar__toggle' type='button'><span class='bootypo bootypo--menu-hamburger '></span></button>
-					<a class='navigation-bar__brand' href='home'>Spark</a>
+					<a class='navigation-bar__brand' href='${context}/home'>Spark</a>
 				</div>
 				<div class='navigation-bar__body'>
 					<c:import url="include/guest.jsp"/>
@@ -61,7 +61,7 @@
 								</div>
 							</div>
 						</div>
-						<form id='drop-notsupported' class='panel panel-upload' method='post' action='upload' enctype='multipart/form-data'>
+						<form id='drop-notsupported' class='panel panel-upload' method='post' action='${context}/resource/upload' enctype='multipart/form-data'>
 							<div class='panel__header grid'>
 								<div class='row'>
 									<div class='column small-12 text-center'>

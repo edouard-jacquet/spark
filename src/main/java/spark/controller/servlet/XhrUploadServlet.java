@@ -15,7 +15,7 @@ import spark.exception.UploadException;
 import spark.model.bean.JsonResponse;
 import spark.model.manager.ManageResource;
 
-@WebServlet("/xhr-upload")
+@WebServlet("/resource/xhr-upload")
 @MultipartConfig
 public class XhrUploadServlet extends HttpServlet {
 	
