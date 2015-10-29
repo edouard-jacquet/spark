@@ -48,7 +48,7 @@ function suggest(query) {
 		}
 		
 		ajax = $.ajax({
-			url: 'search/suggestion',
+			url: context +'/search/suggestion',
 			method: 'get',
 			data: {query: query},
 			dataType: 'json'
@@ -64,7 +64,7 @@ function suggest(query) {
 			for(var i = 0 ; i < response.data.length ; i++) {	
 				$('#suggestions').append("\
 					<a class='list-group__item' \
-						href='search?query="+ response.data[i].label +"'>\
+						href='"+ context +"/search?query="+ response.data[i].label +"'>\
 						"+ response.data[i].label.replace(query, '<strong>'+ query +'</strong>') +"\
 					</a>\
 				");

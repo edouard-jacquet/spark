@@ -10,13 +10,13 @@
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<title>Home - Spark</title>
-		<link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
-		<link rel='stylesheet' type='text/css' href='css/style.css'>
-		<link rel='stylesheet' type='text/css' href='css/home.css'>
-		<script src='js/jquery.js'></script>
-		<script src='js/bootstrap.js'></script>
-		<script src='js/script.js'></script>
-		<script src='js/home.js'></script>
+		<link rel='stylesheet' type='text/css' href='${context}/css/bootstrap.css'>
+		<link rel='stylesheet' type='text/css' href='${context}/css/style.css'>
+		<link rel='stylesheet' type='text/css' href='${context}/css/home.css'>
+		<script src='${context}/js/jquery.js'></script>
+		<script src='${context}/js/bootstrap.js'></script>
+		<script src='${context}/js/script.js'></script>
+		<script src='${context}/js/home.js'></script>
 	</head>
 
 	<body>
@@ -43,7 +43,7 @@
 				</div>
 				<div class='row'>
 					<div class='column small-10 medium-6 small--centered'>
-						<form id='search' class='search' method='get' action='search'>
+						<form id='search' class='search' method='get' action='${context}/search'>
 							<div class='form__group'>
 								<input id='query' class='form__control query' type='search' name='query'/></input>
 							</div>

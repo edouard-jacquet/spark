@@ -25,7 +25,7 @@ public class SignupServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/home");
 		}
 		else {
-			request.getRequestDispatcher("jsp/signup.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/signup.jsp").forward(request, response);
 		}
 	}
 
@@ -37,7 +37,7 @@ public class SignupServlet extends HttpServlet {
 		}
 		catch(NotificationException | UserIsExistException | UserNotCreatedException exception) {
 			request.setAttribute("notifications", manageUser.getNotifications());
-			request.getRequestDispatcher("jsp/signup.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/signup.jsp").forward(request, response);
 		}
 	}
 	

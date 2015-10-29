@@ -4,3 +4,7 @@
 
 <c:set var="context" value="${pageContext.request.contextPath}" scope="request"/>
 <c:set var="guest" value="${sessionScope['guest']}" scope="request"/>
+
+<script>
+	var context = '${context}';
+</script>

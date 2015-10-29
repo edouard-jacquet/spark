@@ -9,13 +9,13 @@
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<title>Signup - Spark</title>
-		<link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
-		<link rel='stylesheet' type='text/css' href='css/style.css'>
-		<link rel='stylesheet' type='text/css' href='css/signup.css'>
-		<script src='js/jquery.js'></script>
-		<script src='js/bootstrap.js'></script>
-		<script src='js/script.js'></script>
-		<script src='js/signup.js'></script>
+		<link rel='stylesheet' type='text/css' href='${context}/css/bootstrap.css'>
+		<link rel='stylesheet' type='text/css' href='${context}/css/style.css'>
+		<link rel='stylesheet' type='text/css' href='${context}/css/signup.css'>
+		<script src='${context}/js/jquery.js'></script>
+		<script src='${context}/js/bootstrap.js'></script>
+		<script src='${context}/js/script.js'></script>
+		<script src='${context}/js/signup.js'></script>
 	</head>
 
 	<body>
@@ -23,7 +23,7 @@
 			<div class='navigation-bar navigation-bar--inverse'>
 				<div class='navigation-bar__header'>
 					<button class='button navigation-bar__toggle' type='button'><span class='bootypo bootypo--menu-hamburger '></span></button>
-					<a class='navigation-bar__brand' href='home'>Spark</a>
+					<a class='navigation-bar__brand' href='${context}/home'>Spark</a>
 				</div>
 			</div>
 		</header>
@@ -32,7 +32,7 @@
 			<div class='grid'>
 				<div class='row'>
 					<div class='column small-12 medium-6 medium--centered large-4'>
-						<form class='panel panel-signup' method='post' action='signup'>
+						<form class='panel panel-signup' method='post' action='${context}/signup'>
 							<div class='panel__header grid'>
 								<div class='row'>
 									<div class='column small-12 text-center'>
