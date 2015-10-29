@@ -35,8 +35,33 @@
 			<div class='grid'>
 				<div class='row'>
 					<div class='column small-12 medium-6 medium--centered large-4'>
-						<!--
-						<form class='panel panel-upload' method='post' action='upload' enctype='multipart/form-data'>
+						<div id='drop-supported' class='panel panel-upload'>
+							<div class='panel__header grid'>
+								<div class='row'>
+									<div class='column small-12 text-center'>
+										<h1 class='small-only--show'>Upload</h1>
+										<span class='bootypo bootypo--cloud-upload panel__icon medium-up--show'></span>
+									</div>
+								</div>
+							</div>
+							<div class='panel__body grid'>
+								<div class='row row--bottom-15'>
+									<div class='column small-12'>
+										<div id='drop' class='drop'>
+											<span class='drop__instruction'>Drop your file here.</span>
+										</div>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='column small-12'>
+										<div class='progress-container'>
+											<div id='progress-upload' class='progress-bar progress-bar--warning progress-bar--striped progress-upload' style='width:0%'>0%</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<form id='drop-notsupported' class='panel panel-upload' method='post' action='upload' enctype='multipart/form-data'>
 							<div class='panel__header grid'>
 								<div class='row'>
 									<div class='column small-12 text-center'>
@@ -64,33 +89,6 @@
 								</div>
 							</div>
 						</form>
-						-->
-						<div class='panel panel-upload'>
-							<div class='panel__header grid'>
-								<div class='row'>
-									<div class='column small-12 text-center'>
-										<h1 class='small-only--show'>Upload</h1>
-										<span class='bootypo bootypo--cloud-upload panel__icon medium-up--show'></span>
-									</div>
-								</div>
-							</div>
-							<div class='panel__body grid'>
-								<div class='row row--bottom-15'>
-									<div class='column small-12'>
-										<div id='drop' class='drop'>
-											<span class='drop__instruction'>Drop your file here.</span>
-										</div>
-									</div>
-								</div>
-								<div class='row'>
-									<div class='column small-12'>
-										<div class='progress-container'>
-											<div id='progress-upload' class='progress-bar progress-bar--warning progress-bar--striped progress-upload' style='width:0%'>0%</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
