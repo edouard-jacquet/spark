@@ -7,6 +7,7 @@ public class JsonResponse {
 	private boolean warning = false;
 	private boolean error = false;
 	private List<Notification> notifications = null;
+	private Object data = null;
 
 	
 	public boolean isWarning() {
@@ -31,6 +32,14 @@ public class JsonResponse {
 
 	public void setNotifications(List<Notification> notifications) {
 		this.notifications = notifications;
+	}
+
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
 	}
 	
 }
