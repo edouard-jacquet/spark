@@ -4,9 +4,12 @@ import org.apache.lucene.util.Version;
 
 public final class Constant {
 	
+	// root
+	public static final String ROOT_FOLDER = Constant.class.getResource("/").getPath().substring(0, Constant.class.getResource("/").getPath().indexOf("WEB-INF"));
+	
 	// storage
-	public static final String STORAGE_ROOT = Constant.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(0, Constant.class.getProtectionDomain().getCodeSource().getLocation().getPath().indexOf("WEB-INF")) +"storage/";
-	public static final String STORAGE_TMP_FOLDER = Constant.STORAGE_ROOT +"tmp/";
+	public static final String STORAGE_ROOT_FOLDER = Constant.ROOT_FOLDER +"storage/";
+	public static final String STORAGE_TEMPORARY_FOLDER = Constant.STORAGE_ROOT_FOLDER +"temporary/";
 	
 	// lucene
 	public static final Version LUCENE_VERSION = Version.LATEST;

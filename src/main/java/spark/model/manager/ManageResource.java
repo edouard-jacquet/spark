@@ -37,11 +37,11 @@ public class ManageResource {
 		}
 	}
 	
-	private void save(String name, InputStream inputStream) throws IOException {
+	private File save(String name, InputStream inputStream) throws IOException {
 		OutputStream outputStream = null;
 		
 		try {
-			File file = new File(Constant.STORAGE_TMP_FOLDER + name);
+			File file = new File(Constant.STORAGE_TEMPORARY_FOLDER + name);
 			outputStream = new FileOutputStream(file);
 			
 			int read = 0;
@@ -50,6 +50,8 @@ public class ManageResource {
 			while((read = inputStream.read(bytes)) != -1) {
 				outputStream.write(bytes, 0, read);
 			}
+			
+			return file;
 		}
 		finally {
 			if (inputStream != null)
