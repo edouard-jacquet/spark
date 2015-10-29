@@ -24,7 +24,7 @@
 					<a class='navigation-bar__brand' href='home'>Spark</a>
 				</div>
 				<div class='navigation-bar__body'>
-					<form class='navigation-bar__form navigation-bar--left' method='get' action='search'>
+					<form id='search' class='navigation-bar__form navigation-bar--left search' method='get' action='search'>
 						<div class='form__group'>
 							<div class='input-group'>
 								<input id='query' class='form__control query' type='text' name='query' value='<c:out value="${query}"/>'/>
@@ -35,13 +35,7 @@
 								</span>
 							</div>
 						</div>
-						<c:if test="${suggestions != null && suggestions.size() > 0}">
-							<div id='suggestions' class='list-group suggestions'>
-								<c:forEach var="suggestion" items="${suggestions}">
-									<a class='list-group__item' href='search?query=<c:out value="${suggestion.query}"/>'><c:out value="${suggestion.label}"/></a>
-								</c:forEach>
-							</div>
-						</c:if>
+						<div id='suggestions' class='list-group suggestions'></div>
 					</form>
 					<c:import url="include/guest.jsp"/>
 				</div>
