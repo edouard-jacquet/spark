@@ -43,8 +43,11 @@
 				</div>
 				<div class='row'>
 					<div class='column small-10 medium-6 small--centered'>
-						<form method='get' action='search'>
-							<input id='query' class='form__control query' type='search' name='query'/></input>
+						<form id='search' class='search' method='get' action='search'>
+							<div class='form__group'>
+								<input id='query' class='form__control query' type='search' name='query'/></input>
+							</div>
+							<div id='suggestions' class='list-group suggestions'></div>
 						</form>
 					</div>
 				</div>

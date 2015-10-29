@@ -28,6 +28,9 @@ private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ManageResource manageResource = new ManageResource();
 		JsonResponse jsonResponse = new JsonResponse();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
 		try {
 			manageResource.upload(request);
 			jsonResponse.setNotifications(manageResource.getNotifications());
@@ -37,8 +40,6 @@ private static final long serialVersionUID = 1L;
 			jsonResponse.setNotifications(manageResource.getNotifications());
 		}
 		finally {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(new Gson().toJson(jsonResponse));
 		}
 	}
