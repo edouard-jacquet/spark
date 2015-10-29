@@ -29,7 +29,7 @@ function dropActive() {
 		
 		if(data) {
 			if(data.files.length) {
-				$('#notifications').empty().css('display', 'none');
+				$('#notifications').css('display', 'none').empty();
 				upload(data.files, 0);
 				/*
 				for(var i = 0 ; i < data.files.length ; i++) {

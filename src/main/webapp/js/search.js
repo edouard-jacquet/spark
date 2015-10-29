@@ -4,15 +4,7 @@ $(document).ready(function() {
 	
 	$('#query').bind('keyup', function(event) {
 		var trigger = $(this);
-
-		/*
-		if($(trigger).val().length > 0) {
-			$('#suggestions').css('display', 'block').addClass('open');
-		}
-		else {
-			$('#suggestions').css('display', 'none').removeClass('open');
-		}
-		*/
+		suggest($(this).val());
 	});
 	
 	$('#control-settings').bind('click', function(event) {

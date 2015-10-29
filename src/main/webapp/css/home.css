@@ -29,6 +29,8 @@ body {
 
 .body {
 	padding-top: 10%;
+	padding-bottom: 0;
+	overflow: visible;
 }
 
 .letter {
@@ -44,4 +46,29 @@ body {
 	.letter {
 		font-size: 96px;
 	}
+}
+
+.search {
+	position: relative;
+}
+
+.search .suggestions {
+	width: 100%;
+	position: absolute;
+	top: 34px;
+	left: 0;
+	display: none;
+	margin-bottom: 0;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
+	z-index: 1001;
+}
+
+.search .suggestions > .list-group__item {
+	margin-bottom: 0;
+	padding: 6px 12px;
+	border: none;
+}
+
+.search .suggestions > .list-group__item:first-child {
+	border-radius: 0;
 }
