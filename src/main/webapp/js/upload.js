@@ -1,5 +1,14 @@
 $(document).ready(function() {
-	
+	if(isFileAPIEnabled() && isEventSupported('dragstart') && isEventSupported('drop')) {
+		$('#drop-notsupported').css('display', 'none');
+		dropActive();
+	}
+	else {
+		$('#drop-supported').css('display', 'none');
+	}
+});
+
+function dropActive() {
 	$('#notifications').css('display', 'none');
 	
 	$('#drop').on('dragover', function(event) {
@@ -21,14 +30,16 @@ $(document).ready(function() {
 		if(data) {
 			if(data.files.length) {
 				$('#notifications').empty().css('display', 'none');
+				upload(data.files, 0);
+				/*
 				for(var i = 0 ; i < data.files.length ; i++) {
 					upload(data.files, i);
 				}
+				*/
 			}
 		}
 	});
-	
-});
+}
 
 function upload(files, index) {
 	var file = files[index];
