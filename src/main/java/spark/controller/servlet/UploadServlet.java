@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import spark.exception.UploadException;
+import spark.model.manager.ManageResource;
 import spark.model.manager.ManageUser;
 
 @WebServlet("/upload")
@@ -29,19 +31,17 @@ private static final long serialVersionUID = 1L;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
 		ManageResource manageResource = new ManageResource();
 		try {
 			manageResource.upload(request);
+			request.setAttribute("notifications", manageResource.getNotifications());
 		}
 		catch(UploadException uploadException) {
-			JsonResponse jsonResponse = new JsonResponse();
-			jsonResponse.setError(true);
-			response.setContentType("text/html");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write("");
+			request.setAttribute("notifications", manageResource.getNotifications());
 		}
-		*/
+		finally {
+			request.getRequestDispatcher("jsp/upload.jsp").forward(request, response);
+		}
 	}
 	
 }
