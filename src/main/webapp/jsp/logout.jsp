@@ -9,13 +9,13 @@
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<title>Logout - Spark</title>
-		<link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
-		<link rel='stylesheet' type='text/css' href='css/style.css'>
-		<link rel='stylesheet' type='text/css' href='css/logout.css'>
-		<script src='js/jquery.js'></script>
-		<script src='js/bootstrap.js'></script>
-		<script src='js/script.js'></script>
-		<script src='js/logout.js'></script>
+		<link rel='stylesheet' type='text/css' href='${context}/css/bootstrap.css'>
+		<link rel='stylesheet' type='text/css' href='${context}/css/style.css'>
+		<link rel='stylesheet' type='text/css' href='${context}/css/logout.css'>
+		<script src='${context}/js/jquery.js'></script>
+		<script src='${context}/js/bootstrap.js'></script>
+		<script src='${context}/js/script.js'></script>
+		<script src='${context}/js/logout.js'></script>
 	</head>
 
 	<body>
@@ -23,7 +23,7 @@
 			<div class='navigation-bar navigation-bar--inverse'>
 				<div class='navigation-bar__header'>
 					<button class='button navigation-bar__toggle' type='button'><span class='bootypo bootypo--menu-hamburger '></span></button>
-					<a class='navigation-bar__brand' href='home'>Spark</a>
+					<a class='navigation-bar__brand' href='${context}/home'>Spark</a>
 				</div>
 			</div>
 		</header>
@@ -37,7 +37,7 @@
 								You have been logged out.<br/>
 								Automatically redirect on home page in <span id='left-time'></span>.
 							</p>
-							<p><a class='button button--primary button--large' href='home'>Go home</a></p>
+							<p><a class='button button--primary button--large' href='${context}/home'>Go home</a></p>
 						</div>
 					</div>
 				</div>
