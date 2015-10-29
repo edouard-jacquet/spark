@@ -1,7 +1,5 @@
 package spark.model.manager;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +18,9 @@ import spark.model.bean.Notification;
 import spark.model.bean.User;
 import spark.model.dao.UserDAO;
 
-public class ManageUser {
+public class ManageUser extends Manager {
 
 	private UserDAO userDAO = new UserDAO();
-	private List<Notification> notifications = new LinkedList<Notification>();
 	
 	
 	public void create(HttpServletRequest request, HttpServletResponse response) throws NotificationException, UserIsExistException, UserNotCreatedException {
@@ -54,7 +51,7 @@ public class ManageUser {
 		user.setLogin(login);
 		user.setPassword(password);
 		user.setKey(Random.generate(160));
-		if(!userDAO.add(user)) {
+		if(userDAO.create(user) != null) {
 			notifications.add(new Notification("alert", "User hasn't been created."));
 			throw new UserNotCreatedException();
 		}
@@ -122,10 +119,6 @@ public class ManageUser {
 				}
 			}
 		}
-	}
-	
-	public List<Notification> getNotifications() {
-		return notifications;
 	}
 
 }
