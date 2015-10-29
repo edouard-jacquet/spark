@@ -1,40 +1,10 @@
 package spark.model.dao;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import spark.model.bean.User;
 
-public class UserDAO {
-	
-	private EntityManager entityManager = Connection.getInstance().getConnection();
-	
-	public boolean add(User user) {
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(user);
-			entityManager.getTransaction().commit();
-			
-			return true;
-		}
-		catch(Exception exception) {
-			entityManager.getTransaction().begin();
-			entityManager.getTransaction().rollback();
-			
-			throw exception;
-		}
-	}
-	
-	public User getById(long id) {
-		try {
-			return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.id = :id")
-					.setParameter("id", id)
-					.getSingleResult();
-		}
-		catch (NoResultException noResultException) {
-			return null;
-		}
-	}
+public class UserDAO extends Dao<User> {
 	
 	public User getByLoginAndPassword(String login, String password) {
 		try {
@@ -51,8 +21,8 @@ public class UserDAO {
 	public boolean isExist(String login) {
 		try {
 			entityManager.createQuery("SELECT u FROM User u WHERE u.login = :login")
-				.setParameter("login", login)
-				.getSingleResult();
+					.setParameter("login", login)
+					.getSingleResult();
 			
 			return true;
 		}
@@ -60,5 +30,4 @@ public class UserDAO {
 			return false;
 		}
 	}
-
 }

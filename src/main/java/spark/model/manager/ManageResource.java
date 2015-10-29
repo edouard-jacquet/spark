@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +14,7 @@ import spark.Constant;
 import spark.exception.UploadException;
 import spark.model.bean.Notification;
 
-public class ManageResource {
-	
-	private List<Notification> notifications = new LinkedList<Notification>();
-	
+public class ManageResource extends Manager {
 	
 	public void upload(HttpServletRequest request) throws UploadException {
 		try {
@@ -62,8 +57,4 @@ public class ManageResource {
 		}
 	}
 	
-	public List<Notification> getNotifications() {
-		return notifications;
-	}
-
 }
