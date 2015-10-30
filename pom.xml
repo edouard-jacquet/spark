@@ -38,12 +38,12 @@
 	<!-- Hibernate -->
 	<dependency>
 		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-entitymanager</artifactId>
+		<artifactId>hibernate-core</artifactId>
 		<version>5.0.2.Final</version>
 	</dependency>
 	<dependency>
 		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-core</artifactId>
+		<artifactId>hibernate-entitymanager</artifactId>
 		<version>5.0.2.Final</version>
 	</dependency>
 	
@@ -61,11 +61,6 @@
 	<dependency>
 		<groupId>org.apache.lucene</groupId>
 		<artifactId>lucene-queryparser</artifactId>
-		<version>5.3.1</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.lucene</groupId>
-		<artifactId>lucene-core</artifactId>
 		<version>5.3.1</version>
 	</dependency>
 	
