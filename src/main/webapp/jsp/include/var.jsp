@@ -3,8 +3,10 @@
 
 
 <c:set var="context" value="${pageContext.request.contextPath}" scope="request"/>
-<c:set var="guest" value="${sessionScope['guest']}" scope="request"/>
+<c:set var="constant" value="${applicationScope.constant}" scope="application"/>
+<c:set var="guest" value="${sessionScope.guest}" scope="request"/>
 
 <script>
-	var _context = '${context}';
+	var _JAVA_context = "${context}";
+	var _JAVA_queryMinSize = "${constant.SUGGESTION_QUERY_MINSIZE}";
 </script>
