@@ -14,4 +14,15 @@
 			<taglib-location>/WEB-INF/taglib/fn.tld</taglib-location>
 		</taglib>
 	</jsp-config>
+	
+	<servlet>
+		<servlet-name>InitializationServlet</servlet-name>
+		<servlet-class>spark.controller.servlet.InitializationServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<listener>
+		<description>Constant Access in JSP</description>
+		<listener-class>spark.ConstantContextListener</listener-class>
+	</listener>
 </web-app>
