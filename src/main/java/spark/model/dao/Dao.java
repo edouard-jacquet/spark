@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 
+import spark.model.factory.Connection;
+
 @SuppressWarnings("unchecked")
 public abstract class Dao<T> implements IDao<T> {
 	
