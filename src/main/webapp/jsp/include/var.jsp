@@ -6,5 +6,5 @@
 <c:set var="guest" value="${sessionScope['guest']}" scope="request"/>
 
 <script>
-	var context = '${context}';
+	var _context = '${context}';
 </script>
