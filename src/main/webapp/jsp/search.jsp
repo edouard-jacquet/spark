@@ -9,12 +9,9 @@
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<title>Search - Spark</title>
-		<link rel='stylesheet' type='text/css' href='${context}/css/bootstrap.css'>
-		<link rel='stylesheet' type='text/css' href='${context}/css/style.css'>
+		<c:import url="include/dependence-css.jsp"/>
 		<link rel='stylesheet' type='text/css' href='${context}/css/search.css'>
-		<script src='${context}/js/jquery.js'></script>
-		<script src='${context}/js/bootstrap.js'></script>
-		<script src='${context}/js/script.js'></script>
+		<c:import url="include/dependence-js.jsp"/>
 		<script src='${context}/js/search.js'></script>
 	</head>
 

@@ -4,7 +4,7 @@ $(document).ready(function() {
 	
 	$('#query').bind('keyup', function(event) {
 		var trigger = $(this);
-		suggest($(this).val());
+		suggest('/search/suggestion', $(this).val());
 	});
 	
 	$('#control-settings').bind('click', function(event) {
