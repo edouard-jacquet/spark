@@ -1,4 +1,4 @@
-package spark.model.dao;
+package spark.model.factory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
