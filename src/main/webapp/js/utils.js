@@ -1,4 +1,4 @@
-var _ajax = null;
+var _GLOBAL_ajax = null;
 
 
 /* ============================== *\
@@ -57,20 +57,20 @@ function isBlank(string) {
 => suggest
 \* ============================== */
 function suggest(url, query) {
-	if(!isEmpty(query) && !isBlank(query)) {
-		if(_ajax != null) {
-			_ajax.abort();
-			_ajax = null;
+	if(!isEmpty(query) && !isBlank(query) && query.length >= _JAVA_queryMinSize) {
+		if(_GLOBAL_ajax != null) {
+			_GLOBAL_ajax.abort();
+			_GLOBAL_ajax = null;
 		}
 		
-		_ajax = $.ajax({
-			url: _context + url,
+		_GLOBAL_ajax = $.ajax({
+			url: _JAVA_context + url,
 			method: 'get',
 			data: {query: query},
 			dataType: 'json'
 		});
 		
-		_ajax.done(function(response) {
+		_GLOBAL_ajax.done(function(response) {
 			if(response.error) {
 				return false;
 			}
@@ -78,10 +78,39 @@ function suggest(url, query) {
 			$('#suggestions').css('display', 'none').removeClass('open').empty();
 			
 			for(var i = 0 ; i < response.data.length ; i++) {	
+				var suggestion = response.data[i].query;
+				
+				if(suggestion != query.toLowerCase()) {
+					var idx = suggestion.indexOf(query);
+					suggestion = '<strong>'+ suggestion +'</strong>';
+					
+					if(idx == 0) {
+						suggestion = suggestion.replace('<strong>'+ query, query +'<strong>');
+					}
+					else if(idx == -1) {
+						var subQuery = query;
+						var matchSpace = subQuery.match(new RegExp(' ', 'g'));
+						
+						if(matchSpace != null) {
+							var countSpace = matchSpace.length;
+							
+							for(var j = 0 ; j < countSpace ; j++) {
+								subQuery = subQuery.substring(0, subQuery.lastIndexOf(' '));
+								var idx = suggestion.indexOf(subQuery);
+								
+								if(idx == 8) {
+									suggestion = suggestion.replace('<strong>'+ subQuery, subQuery +'<strong>');
+									break;
+								}
+							}
+						}
+					}
+				}
+				
 				$('#suggestions').append("\
 					<a class='list-group__item' \
-						href='"+ _context +"/search?query="+ response.data[i].label +"'>\
-						"+ response.data[i].label.replace(query, '<strong>'+ query +'</strong>') +"\
+						href='"+ _JAVA_context +"/search?query="+ response.data[i].query +"'>\
+						<span class='suggestion__label'>"+ suggestion +"</span>\
 					</a>\
 				");
 			}
@@ -89,7 +118,7 @@ function suggest(url, query) {
 			$('#suggestions').css('display', 'block').addClass('open');
 		});
 		
-		_ajax.fail(function(xhr, textStatus) {
+		_GLOBAL_ajax.fail(function(xhr, textStatus) {
 			$('#suggestions').css('display', 'none').removeClass('open');
 		});
 	}
@@ -141,7 +170,7 @@ function xhrUpload(url, files, index) {
 	
 	$('#progress-upload').css('width', 0).html('0%').addClass('active');
 	
-	xhr.open('post', _context + url, true);
+	xhr.open('post', _JAVA_context + url, true);
 	xhr.send(formData);
 }
 

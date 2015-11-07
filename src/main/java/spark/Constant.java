@@ -11,9 +11,6 @@ public final class Constant {
 	public static final String STORAGE_ROOT_FOLDER = Constant.ROOT_FOLDER +"storage/";
 	public static final String STORAGE_TEMPORARY_FOLDER = Constant.STORAGE_ROOT_FOLDER +"temporary/";
 	
-	// lucene
-	public static final Version LUCENE_VERSION = Version.LATEST;
-	
 	// regex
 	public static final String REGEX_LOGIN = "[a-zA-Z][a-zA-Z0-9.]+";
 	public static final String REGEX_PASSWORD = "[a-zA-Z][a-zA-Z0-9.]+";
@@ -25,5 +22,12 @@ public final class Constant {
 	public static final String COOKIE_USER_NAME = "spark_auth";
 	public static final String COOKIE_DELIMITER = "----";
 	public static final int COOKIE_MAXAGE = 60 * 60 * 24;
+	
+	// lucene
+	public static final Version LUCENE_VERSION = Version.LATEST;
+	
+	// suggestion
+	public static final int SUGGESTION_MAXRESULT = 4;
+	public static final int SUGGESTION_QUERY_MINSIZE = 3;
 
 }
