@@ -24,7 +24,7 @@ public class ManageDocument extends Manager {
 		String query = request.getParameter("query");
 		String page = request.getParameter("page");
 		
-		if(query != null && query.length() > 0  && query.length() >= Constant.DOCUMENT_QUERY_MINSIZE) {
+		if(query != null && query.length() >= Constant.DOCUMENT_QUERY_MINSIZE) {
 			if(page != null && page.length() > 0 && Pattern.matches(Constant.REGEX_PAGE, page)) {
 				currentPage = Integer.parseInt(page);
 			}

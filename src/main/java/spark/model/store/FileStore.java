@@ -30,7 +30,7 @@ public class FileStore implements DirectoryProvider<Directory> {
 		try {
 			directory = DirectoryProviderHelper.createFSIndex(index, properties, buildContext.getServiceManager());
 		}
-		catch (IOException exception) {
+		catch(IOException exception) {
 			exception.printStackTrace();
 		}
 	}
