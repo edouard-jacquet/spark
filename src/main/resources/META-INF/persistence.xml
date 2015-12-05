@@ -27,7 +27,7 @@
 			<!-- Hibernate Search -->
 			<property name="hibernate.search.lucene_version" value="5.3.1"/>
 			<property name="hibernate.search.default.directory_provider" value="ram"/>
-			<property name="hibernate.search.Suggestion.directory_provider" value="spark.model.store.SuggestionStore"/>
+			<property name="hibernate.search.Suggestion.directory_provider" value="spark.model.store.RamStore"/>
 		</properties>
 	</persistence-unit>
 </persistence>
