@@ -11,13 +11,15 @@ import spark.model.bean.Suggestion;
 import spark.model.dao.SuggestionDAO;
 
 public class ManageSuggestion extends Manager {
+	
+	SuggestionDAO suggestionDAO = new SuggestionDAO();
+	
 
 	public List<Suggestion> suggest(HttpServletRequest request) throws SuggestionException {
 		List<Suggestion> suggestions = new LinkedList<Suggestion>();
 		String query = request.getParameter("query");
 		
-		if(query != null && !query.equals("") && query.length() >= Constant.SUGGESTION_QUERY_MINSIZE) {
-			SuggestionDAO suggestionDAO = new SuggestionDAO();
+		if(query != null && query.length() >= Constant.SUGGESTION_QUERY_MINSIZE) {
 			suggestions = suggestionDAO.getByQueryOrderByScoring(query);
 		}
 		
