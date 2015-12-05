@@ -22,6 +22,9 @@
 					<button class='button navigation-bar__toggle' type='button'><span class='bootypo bootypo--menu-hamburger '></span></button>
 					<a class='navigation-bar__brand' href='${context}/home'>Spark</a>
 				</div>
+				<div class='navigation-bar__body'>
+					<c:import url="include/guest.jsp"/>
+				</div>
 			</div>
 		</header>
 		<section id='body' class='body'>
