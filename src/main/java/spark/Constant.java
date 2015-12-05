@@ -16,6 +16,8 @@ public final class Constant {
 	// regex
 	public static final String REGEX_LOGIN = "[a-zA-Z][a-zA-Z0-9.]+";
 	public static final String REGEX_PASSWORD = "[a-zA-Z][a-zA-Z0-9.]+";
+	public static final String REGEX_ID = "[1-9][0-9]*";
+	public static final String REGEX_PAGE = "[1-9][0-9]*";
 	
 	// session
 	public static final String SESSION_USER_NAME = "guest";
@@ -31,5 +33,9 @@ public final class Constant {
 	// suggestion
 	public static final int SUGGESTION_MAXRESULT = 4;
 	public static final int SUGGESTION_QUERY_MINSIZE = 3;
+	
+	// document
+	public static final int DOCUMENT_MAXRESULT = 10;
+	public static final int DOCUMENT_QUERY_MINSIZE = 3;
 
 }
