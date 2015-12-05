@@ -45,7 +45,7 @@ public class FileStore implements DirectoryProvider<Directory> {
 		try {
 			directory.close();
 		}
-		catch (IOException exception) {
+		catch(IOException exception) {
 			exception.printStackTrace();
 		}
 	}

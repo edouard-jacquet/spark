@@ -26,6 +26,7 @@ public abstract class Dao<T> implements IDao<T> {
 		this.fullTextEntityManager = Connection.getInstance().getFullTextConnection();
 	}
 	
+	@Override
 	public T create(T object) {
 		try {
 			entityManager.getTransaction().begin();
@@ -40,6 +41,7 @@ public abstract class Dao<T> implements IDao<T> {
 		}
 	}
 	
+	@Override
 	public T update(T object) {
 		try {
 			entityManager.getTransaction().begin();
@@ -54,6 +56,7 @@ public abstract class Dao<T> implements IDao<T> {
 		}
 	}
 	
+	@Override
 	public T delete(T object) {
 		try {
 			entityManager.getTransaction().begin();
@@ -68,6 +71,7 @@ public abstract class Dao<T> implements IDao<T> {
 		}
 	}
 	
+	@Override
 	public List<T> getAll() {
 		try {
 			return (List<T>) entityManager.createQuery("SELECT t FROM "+ this.persistentClass.getSimpleName() +" t")
@@ -78,6 +82,7 @@ public abstract class Dao<T> implements IDao<T> {
 		}
 	}
 	
+	@Override
 	public T getById(Long id) {
 		try {
 			return (T) entityManager.createQuery("SELECT t FROM "+ this.persistentClass.getSimpleName() +" t WHERE t.id = :id")
