@@ -38,7 +38,7 @@ public class PdfBridge implements StringBridge {
 			try {
 				pdDocument.close();
 			}
-			catch (IOException exception) {
+			catch(IOException exception) {
 				exception.printStackTrace();
 			}
 		}
