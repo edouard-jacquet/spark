@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 import spark.exception.SuggestionException;
 import spark.model.bean.JsonResponse;
-import spark.model.manager.ManageSearch;
+import spark.model.manager.ManageSuggestion;
 
 @WebServlet("/search/suggestion")
 public class SuggestionServlet extends HttpServlet {
@@ -20,13 +20,13 @@ public class SuggestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ManageSearch manageSearch = new ManageSearch();
+		ManageSuggestion manageSuggestion = new ManageSuggestion();
 		JsonResponse jsonResponse = new JsonResponse();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
 		try {
-			jsonResponse.setData(manageSearch.suggest(request));
+			jsonResponse.setData(manageSuggestion.suggest(request));
 		}
 		catch(SuggestionException suggestionException) {
 			jsonResponse.setError(true);
