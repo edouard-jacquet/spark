@@ -62,10 +62,10 @@
 									<label for='personalization'>Personalization</label>
 								</div>
 							</div>
-							<c:if test="${results != null && results.size() > 0}">
+							<c:if test="${documents != null && documents.size() > 0}">
 								<div id='details' class='row details'>
 									<div class='column small-12'>
-										About <c:out value="${results.size()}"/> result <c:if test="${results.size() > 1}">s</c:if>.
+										About <c:out value="${documents.size()}"/> document <c:if test="${documents.size() > 1}">s</c:if>.
 									</div>	
 								</div>
 							</c:if>
@@ -75,18 +75,18 @@
 				<div class='row'>
 					<div class='column small-12'>
 						<div class='grid'>
-							<c:if test="${results != null && results.size() > 0}">
-								<c:forEach var="result" items="${results}" varStatus="idx">
+							<c:if test="${documents != null && documents.size() > 0}">
+								<c:forEach var="document" items="${documents}" varStatus="idx">
 									<div class='row'>
 										<div class='column small-12'>
 											<div class='thumbnail'>
 												<div class='thumbnail__caption'>
-													<h3><c:out value="${result.title}"/></h3>
+													<h3><c:out value="${document.title}"/></h3>
 													<p class='text-justify'>
-														<c:out value="${result.summarize}"/>
+														<!--<c:out value="${documents.summary}"/>-->
 													</p>
 													<p>
-														<a class='button button--default' href='${context}/resource/open?id=<c:out value="${result.id}"/>'>Readme</a>
+														<a class='button button--default' href='${context}/resource/open?id=<c:out value="${document.id}"/>'>Readme</a>
 													</p>
 												</div>
 											</div>
@@ -94,10 +94,10 @@
 									</div>
 								</c:forEach>
 							</c:if>
-							<c:if test="${results != null && results.size() == 0}">
+							<c:if test="${documents != null && documents.size() == 0}">
 								<div class='row'>
 									<div class='column small-12'>
-										<h3>No Results Found.</h3>
+										<h3>No Documents Found.</h3>
 										<p>
 											Your search : <span class='bold'><c:out value="${query}"/></span>, did not match any documents.
 										</p>
@@ -110,7 +110,7 @@
 			</div>
 		</section>
 		<footer id='footer' class='footer text-center'>
-			<c:if test="${results != null && results.size() > 0}">
+			<c:if test="${documents != null && documents.size() > 0}">
 				<ul class='pagination'>
 					<c:if test="${currentPage == 1}">
 						<li class='disabled'><a href='#'>&larr;</a></li>
