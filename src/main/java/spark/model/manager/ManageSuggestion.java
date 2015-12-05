@@ -10,8 +10,8 @@ import spark.exception.SuggestionException;
 import spark.model.bean.Suggestion;
 import spark.model.dao.SuggestionDAO;
 
-public class ManageSearch extends Manager {
-	
+public class ManageSuggestion extends Manager {
+
 	public List<Suggestion> suggest(HttpServletRequest request) throws SuggestionException {
 		List<Suggestion> suggestions = new LinkedList<Suggestion>();
 		String query = request.getParameter("query");
@@ -23,5 +23,5 @@ public class ManageSearch extends Manager {
 		
 		return suggestions;
 	}
-
+	
 }
