@@ -2,7 +2,7 @@ var _GLOBAL_ajax = null;
 
 
 /* ============================== *\
-=> isFileAPIEnabled
+   => isFileAPIEnabled
 \* ============================== */
 function isFileAPIEnabled() {
 	return !!window.FileReader;
@@ -10,7 +10,7 @@ function isFileAPIEnabled() {
 
 
 /* ============================== *\
-=> isEventSupported
+   => isEventSupported
 \* ============================== */
 function isEventSupported(eventName, element) {
 	element = element || document.createElement('div');
@@ -38,7 +38,7 @@ function isEventSupported(eventName, element) {
 
 
 /* ============================== *\
-=> isEmpty
+   => isEmpty
 \* ============================== */
 function isEmpty(string) {
 	return (!string || string.length === 0);
@@ -46,15 +46,32 @@ function isEmpty(string) {
 
 
 /* ============================== *\
-=> isBlank
+   => isBlank
 \* ============================== */
 function isBlank(string) {
 	return (!string || /^[\s].*$/.test(string));
 }
 
+/* ============================== *\
+=> displayNotification
+\* ============================== */
+function displayNotifications(notifications) {
+	for(var i = 0 ; i < notifications.length ; i++) {
+		$('#notifications').append("\
+			<div class='row'>\
+				<div class='column small-12'>\
+					<div class='notification notification--"+ notifications[i].type +"'>\
+						"+ notifications[i].message +"\
+						<button class='button notification__close'><span class='bootypo bootypo--remove-2'></span></button>\
+					</div>\
+				</div>\
+			</div>\
+		");
+	}
+}
 
 /* ============================== *\
-=> suggest
+   => suggest
 \* ============================== */
 function suggest(url, query) {
 	if(!isEmpty(query) && !isBlank(query) && query.length >= _JAVA_queryMinSize) {
@@ -129,7 +146,7 @@ function suggest(url, query) {
 
 
 /* ============================== *\
-=> xhrUpload
+   => xhrUpload
 \* ============================== */
 function xhrUpload(url, files, index) {
 	var file = files[index];
@@ -142,18 +159,7 @@ function xhrUpload(url, files, index) {
 		$('#drop').removeClass('dropped');
 		$('#progress-upload').removeClass('active');
 		
-		for(var i = 0 ; i < json.notifications.length ; i++) {
-			$('#notifications').append("\
-				<div class='row'>\
-					<div class='column small-12'>\
-						<div class='notification notification--"+ json.notifications[i].type +"'>\
-							"+ json.notifications[i].message +"\
-							<button class='button notification__close'><span class='bootypo bootypo--remove-2'></span></button>\
-						</div>\
-					</div>\
-				</div>\
-			");
-		}
+		displayNotifications(json.notifications);
 		$('#notifications').slideDown(500);
 		
 		if(json.error) {
@@ -176,11 +182,9 @@ function xhrUpload(url, files, index) {
 
 
 /* ============================== *\
-=> dropToUpload
+   => dropToUpload
 \* ============================== */
 function dropToUpload(url) {
-	$('#notifications').css('display', 'none');
-	
 	$('#drop').on('dragover', function(event) {
 		event.preventDefault();
 		var trigger = $(this);
@@ -201,10 +205,6 @@ function dropToUpload(url) {
 			if(data.files.length) {
 				$('#notifications').css('display', 'none').empty();
 				xhrUpload(url, data.files, 0);
-				//for multiple upload
-				//for(var i = 0 ; i < data.files.length ; i++) {
-				//	upload(data.files, i);
-				//}
 			}
 		}
 	});
