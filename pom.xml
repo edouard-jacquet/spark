@@ -85,6 +85,13 @@
 		<version>2.4</version>
 	</dependency>
 	
+	<!-- PdfBox -->
+	<dependency>
+		<groupId>org.apache.pdfbox</groupId>
+		<artifactId>pdfbox</artifactId>
+		<version>1.8.10</version>
+	</dependency>
+	
   </dependencies>
   <build>
   	<plugins>
