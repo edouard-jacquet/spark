@@ -55,6 +55,9 @@ private static final long serialVersionUID = 1L;
 				jsonResponse.getNotifications().add(new Notification("alert", "Index "+ index +" hasn't been rebuilded"));
 			}
 		}
+		else {
+			jsonResponse.setError(true);
+		}
 
 		response.getWriter().write(new Gson().toJson(jsonResponse));
 	}

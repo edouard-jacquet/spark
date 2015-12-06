@@ -56,17 +56,19 @@ function isBlank(string) {
 => displayNotification
 \* ============================== */
 function displayNotifications(notifications) {
-	for(var i = 0 ; i < notifications.length ; i++) {
-		$('#notifications').append("\
-			<div class='row'>\
-				<div class='column small-12'>\
-					<div class='notification notification--"+ notifications[i].type +"'>\
-						"+ notifications[i].message +"\
-						<button class='button notification__close'><span class='bootypo bootypo--remove-2'></span></button>\
+	if(notifications != null) {
+		for(var i = 0 ; i < notifications.length ; i++) {
+			$('#notifications').append("\
+				<div class='row'>\
+					<div class='column small-12'>\
+						<div class='notification notification--"+ notifications[i].type +"'>\
+							"+ notifications[i].message +"\
+							<button class='button notification__close'><span class='bootypo bootypo--remove-2'></span></button>\
+						</div>\
 					</div>\
 				</div>\
-			</div>\
-		");
+			");
+		}
 	}
 }
 
