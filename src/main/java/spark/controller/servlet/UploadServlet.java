@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import spark.exception.UploadException;
+import spark.exception.UploadExtensionException;
 import spark.model.manager.ManageResource;
 import spark.model.manager.ManageUser;
 
@@ -31,16 +32,20 @@ private static final long serialVersionUID = 1L;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ManageResource manageResource = new ManageResource();
-		try {
-			manageResource.upload(request);
-			request.setAttribute("notifications", manageResource.getNotifications());
-		}
-		catch(UploadException uploadException) {
-			request.setAttribute("notifications", manageResource.getNotifications());
-		}
-		finally {
-			request.getRequestDispatcher("/jsp/upload.jsp").forward(request, response);
+		ManageUser manageUser = new ManageUser();
+		
+		if(manageUser.isLogged(request)) {
+			ManageResource manageResource = new ManageResource();
+			try {
+				manageResource.upload(request);
+				request.setAttribute("notifications", manageResource.getNotifications());
+			}
+			catch(UploadExtensionException | UploadException exception) {
+				request.setAttribute("notifications", manageResource.getNotifications());
+			}
+			finally {
+				request.getRequestDispatcher("/jsp/upload.jsp").forward(request, response);
+			}
 		}
 	}
 	

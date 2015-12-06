@@ -12,17 +12,27 @@ import javax.servlet.http.Part;
 
 import spark.Constant;
 import spark.exception.UploadException;
+import spark.exception.UploadExtensionException;
 import spark.model.bean.Notification;
 
 public class ManageResource extends Manager {
 	
-	public void upload(HttpServletRequest request) throws UploadException {
+	public void upload(HttpServletRequest request) throws UploadException, UploadExtensionException {
 		try {
 			Part filePart = request.getPart("file");
 			String fileName = filePart.getSubmittedFileName();
+			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
+			fileName = fileName.substring(0, fileName.lastIndexOf("."));
+			
+			if(!fileExtension.equals("pdf")) {
+				notifications.add(new Notification("alert", "File extension not corresponding."));
+				throw new UploadExtensionException();
+			}
+			
 			InputStream inputStream = filePart.getInputStream();
 			
-			save(fileName, inputStream);
+			ManageDocument manageDocument = new ManageDocument();
+			manageDocument.create(save(fileName, inputStream));
 			
 			notifications.add(new Notification("success", "Upload "+ fileName +" is successul."));
 		}
@@ -36,7 +46,8 @@ public class ManageResource extends Manager {
 		OutputStream outputStream = null;
 		
 		try {
-			File file = new File(Constant.STORAGE_TEMPORARY_FOLDER + name);
+			String filePath = Constant.STORAGE_TEMPORARY_FOLDER + name +".pdf";
+			File file = new File(filePath);
 			outputStream = new FileOutputStream(file);
 			
 			int read = 0;

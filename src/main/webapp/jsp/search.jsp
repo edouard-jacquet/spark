@@ -83,7 +83,7 @@
 												<div class='thumbnail__caption'>
 													<h3><c:out value="${document.title}"/></h3>
 													<p class='text-justify'>
-														<!--<c:out value="${documents.summary}"/>-->
+														
 													</p>
 													<p>
 														<a class='button button--default' href='${context}/resource/open?id=<c:out value="${document.id}"/>'>Readme</a>
