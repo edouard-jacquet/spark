@@ -17,6 +17,10 @@ public final class Constant {
 	public static final String STORAGE_INDEX_DIRECTORY = "index";
 	public static final String STORAGE_INDEX_FOLDER = Constant.STORAGE_ROOT_FOLDER + Constant.STORAGE_INDEX_DIRECTORY +"/";
 	
+	// public storage
+	public static final String PUBLICSTORAGE_ROOT_FOLDER = Constant.STORAGE_ROOT_DIRECTORY +"/";
+	public static final String PUBLICSTORAGE_DOCUMENT_FOLDER = Constant.PUBLICSTORAGE_ROOT_FOLDER + Constant.STORAGE_DOCUMENT_DIRECTORY +"/";
+	
 	// regex
 	public static final String REGEX_LOGIN = "[a-zA-Z][a-zA-Z0-9.]+";
 	public static final String REGEX_PASSWORD = "[a-zA-Z][a-zA-Z0-9.]+";
