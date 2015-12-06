@@ -1,5 +1,6 @@
 package spark.model.manager;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -7,6 +8,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import spark.Constant;
+import spark.controller.service.security.Hash;
 import spark.exception.NotificationException;
 import spark.model.bean.Document;
 import spark.model.bean.Notification;
@@ -20,24 +22,19 @@ public class ManageDocument extends Manager {
 	private int maxPage = 1;
 	
 	
-	public List<Document> search(HttpServletRequest request) {
-		List<Document> documents = new LinkedList<Document>();
-		String query = request.getParameter("query");
-		String page = request.getParameter("page");
+	public void create(File temporaryFile) {
+		String fileName = temporaryFile.getName();
+		fileName = fileName.substring(0, fileName.lastIndexOf("."));
+		fileName = Hash.generate("SHA-1", fileName);
+		String filePath = Constant.STORAGE_DOCUMENT_FOLDER + fileName +".pdf";
 		
-		if(query != null && query.length() >= Constant.DOCUMENT_QUERY_MINSIZE) {
-			if(page != null && page.length() > 0 && Pattern.matches(Constant.REGEX_PAGE, page)) {
-				currentPage = Integer.parseInt(page);
-			}
-
-			documents = documentDAO.getByQueryAndPageOrderByScoring(query, currentPage);
-			
-			if(documents != null && documents.size() > 0) {
-				maxPage = (int) Math.ceil(((float) documents.size()) / Constant.DOCUMENT_MAXRESULT);
-			}
-		}
+		temporaryFile.renameTo(new File(filePath));
+		temporaryFile.delete();
 		
-		return documents;
+		Document document = new Document();
+		document.setTitle("");
+		document.setAttachment(filePath);
+		documentDAO.create(document);
 	}
 	
 	public Document open(HttpServletRequest request) throws NotificationException {
@@ -59,6 +56,26 @@ public class ManageDocument extends Manager {
 		}
 		
 		return document;
+	}
+	
+	public List<Document> search(HttpServletRequest request) {
+		List<Document> documents = new LinkedList<Document>();
+		String query = request.getParameter("query");
+		String page = request.getParameter("page");
+		
+		if(query != null && query.length() >= Constant.DOCUMENT_QUERY_MINSIZE) {
+			if(page != null && page.length() > 0 && Pattern.matches(Constant.REGEX_PAGE, page)) {
+				currentPage = Integer.parseInt(page);
+			}
+
+			documents = documentDAO.getByQueryAndPageOrderByScoring(query, currentPage);
+			
+			if(documents != null && documents.size() > 0) {
+				maxPage = (int) Math.ceil(((float) documents.size()) / Constant.DOCUMENT_MAXRESULT);
+			}
+		}
+		
+		return documents;
 	}
 
 	public List<Document> getRecommendations() {
