@@ -34,7 +34,7 @@ public class ManageDocument extends Manager {
 		
 		Document document = new Document();
 		document.setTitle("");
-		document.setAttachment(filePath);
+		document.setAttachment(fileName);
 		documentDAO.create(document);
 	}
 	

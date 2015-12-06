@@ -35,8 +35,8 @@
 						<div class='column small-8'>
 							<h3><c:out value="${document.title}"/></h3>
 							<div class='embed-responsive embed-responsive--4by3'>
-								<object class='embed-responsive__item' data='<c:out value="${document.attachment}"/>' type='application/pdf'>
-									<embed src='<c:out value="${document.attachment}"/>'/>
+								<object class='embed-responsive__item' data='<c:out value="${context}/${constant.STORAGE_ROOT_DIRECTORY}/${constant.STORAGE_DOCUMENT_DIRECTORY}/${document.attachment}.pdf"/>' type='application/pdf'>
+									<embed src='<c:out value="${context}/${constant.STORAGE_ROOT_DIRECTORY}/${constant.STORAGE_DOCUMENT_DIRECTORY}/${document.attachment}.pdf"/>'/>
 								</object>
 							</div>
 						</div>
