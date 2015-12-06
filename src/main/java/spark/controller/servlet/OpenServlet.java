@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import spark.exception.NotificationException;
 import spark.model.manager.ManageDocument;
+import spark.model.manager.ManageUser;
 
 @WebServlet("/resource/open")
 public class OpenServlet extends HttpServlet {
@@ -17,6 +18,8 @@ public class OpenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ManageUser manageUser = new ManageUser();
+		manageUser.hasCookie(request, response);
 		ManageDocument manageDocument = new ManageDocument();
 		try {
 			request.setAttribute("document", manageDocument.open(request));
