@@ -15,6 +15,7 @@ import spark.model.dao.DocumentDAO;
 public class ManageDocument extends Manager {
 	
 	DocumentDAO documentDAO = new DocumentDAO();
+	private List<Document> recommendations = new LinkedList<Document>();
 	private int currentPage = 1;
 	private int maxPage = 1;
 	
@@ -51,7 +52,17 @@ public class ManageDocument extends Manager {
 		
 		if(!notifications.isEmpty()) { throw new NotificationException(); }
 		
-		return documentDAO.getById(Long.parseLong(id));
+		Document document = documentDAO.getById(Long.parseLong(id));
+		
+		if(document != null) {
+			recommendations = documentDAO.getSimilarByDocumentOrderByScoring(document);
+		}
+		
+		return document;
+	}
+
+	public List<Document> getRecommendations() {
+		return recommendations;
 	}
 
 	public int getCurrentPage() {
