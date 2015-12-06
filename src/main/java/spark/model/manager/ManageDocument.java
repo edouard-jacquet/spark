@@ -18,6 +18,7 @@ public class ManageDocument extends Manager {
 	
 	DocumentDAO documentDAO = new DocumentDAO();
 	private List<Document> recommendations = new LinkedList<Document>();
+	private int documentCount = 0;
 	private int currentPage = 1;
 	private int maxPage = 1;
 	
@@ -69,9 +70,10 @@ public class ManageDocument extends Manager {
 			}
 
 			documents = documentDAO.getByQueryAndPageOrderByScoring(query, currentPage);
+			documentCount = documentDAO.getResultSize();
 			
-			if(documents != null && documents.size() > 0) {
-				maxPage = (int) Math.ceil(((float) documents.size()) / Constant.DOCUMENT_MAXRESULT);
+			if(documentCount > 0) {
+				maxPage = (int) Math.ceil(((float) documentCount) / Constant.DOCUMENT_MAXRESULT);
 			}
 		}
 		
@@ -81,11 +83,14 @@ public class ManageDocument extends Manager {
 	public List<Document> getRecommendations() {
 		return recommendations;
 	}
+	
+	public int getDocumentCount() {
+		return documentCount;
+	}
 
 	public int getCurrentPage() {
 		return currentPage;
 	}
-
 
 	public int getMaxPage() {
 		return maxPage;
