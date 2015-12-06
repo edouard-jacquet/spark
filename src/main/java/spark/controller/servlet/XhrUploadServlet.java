@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import spark.exception.UploadException;
+import spark.exception.UploadExtensionException;
 import spark.model.bean.JsonResponse;
 import spark.model.manager.ManageResource;
+import spark.model.manager.ManageUser;
 
 @WebServlet("/resource/xhr-upload")
 @MultipartConfig
@@ -26,20 +28,28 @@ private static final long serialVersionUID = 1L;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ManageResource manageResource = new ManageResource();
+		ManageUser manageUser = new ManageUser();
 		JsonResponse jsonResponse = new JsonResponse();
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		try {
-			manageResource.upload(request);
-			jsonResponse.setNotifications(manageResource.getNotifications());
+		if(manageUser.isLogged(request)) {
+			ManageResource manageResource = new ManageResource();
+			try {
+				manageResource.upload(request);
+				jsonResponse.setNotifications(manageResource.getNotifications());
+			}
+			catch(UploadExtensionException | UploadException exception) {
+				jsonResponse.setError(true);
+				jsonResponse.setNotifications(manageResource.getNotifications());
+			}
+			finally {
+				response.getWriter().write(new Gson().toJson(jsonResponse));
+			}
 		}
-		catch(UploadException uploadException) {
+		else {
 			jsonResponse.setError(true);
-			jsonResponse.setNotifications(manageResource.getNotifications());
-		}
-		finally {
 			response.getWriter().write(new Gson().toJson(jsonResponse));
 		}
 	}
