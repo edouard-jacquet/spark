@@ -20,6 +20,7 @@ public class OpenServlet extends HttpServlet {
 		ManageDocument manageDocument = new ManageDocument();
 		try {
 			request.setAttribute("document", manageDocument.open(request));
+			request.setAttribute("recommendations", manageDocument.getRecommendations());
 		}
 		catch(NotificationException exception) {
 			request.setAttribute("notifications", manageDocument.getNotifications());

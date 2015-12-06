@@ -28,4 +28,20 @@ public class DocumentDAO extends Dao<Document> {
 				.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Document> getSimilarByDocumentOrderByScoring(Document document) {
+		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+				.forEntity(Document.class).get();
+		
+		org.apache.lucene.search.Query luceneQuery = queryBuilder
+				.moreLikeThis()
+				.comparingField("attachment")
+				.toEntity(document)
+				.createQuery();
+
+		return (List<Document>) fullTextEntityManager.createFullTextQuery(luceneQuery, Document.class)
+				.setMaxResults(Constant.DOCUMENT_SIMILAR_MAXRESULT)
+				.getResultList();
+	}
+	
 }
