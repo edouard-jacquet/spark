@@ -10,17 +10,20 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.hibernate.search.bridge.StringBridge;
 
+import spark.Constant;
+
 public class PdfBridge implements StringBridge {
 
 	@Override
 	public String objectToString(Object object) {
-		String path = object.toString();
+		String fileName = object.toString();
+		String filePath = Constant.STORAGE_DOCUMENT_FOLDER + fileName +".pdf";
 		
 		PDFTextStripper pdfTextStripper = null;
 		PDDocument pdDocument = null;
 		COSDocument cosDocument = null;
 		
-		File pdf = new File(path);
+		File pdf = new File(filePath);
 		
 		try {
 			PDFParser pdfParser = new PDFParser(new FileInputStream(pdf));
