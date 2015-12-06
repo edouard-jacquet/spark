@@ -41,7 +41,8 @@ public class DocumentDAO extends Dao<Document> {
 		
 		org.apache.lucene.search.Query luceneQuery = queryBuilder
 				.moreLikeThis()
-				.comparingField("attachment")
+				.excludeEntityUsedForComparison()
+				.comparingField("attachmentVectorStandard")
 				.toEntity(document)
 				.createQuery();
 
