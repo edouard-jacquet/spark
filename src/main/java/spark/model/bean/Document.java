@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.TermVector;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
@@ -103,6 +104,11 @@ public class Document {
 		@Field(name = "attachmentEdgeNgram",
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
 				analyzer = @Analyzer(definition = "documentEdgeNgram")
+		),
+				@Field(name = "attachmentVectorStandard",
+				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
+				termVector = TermVector.YES,
+				analyzer = @Analyzer(definition = "documentStandard")
 		)
 	})
 	@FieldBridge(impl = PdfBridge.class)
