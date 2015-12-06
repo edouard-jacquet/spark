@@ -29,21 +29,41 @@
 		</header>
 		<section id='body' class='body'>
 			<c:import url="include/notification.jsp"/>
-			<div class='grid'>
-				<div class='row'>
-					<div class='column small-12'>
-						<c:if test="${document != null}">
+			<c:if test="${document != null}">
+				<div class='grid'>
+					<div class='row'>
+						<div class='column small-8'>
 							<h3><c:out value="${document.title}"/></h3>
-							<div class='embed-responsive embed-responsive--16by9'>
+							<div class='embed-responsive embed-responsive--4by3'>
 								<object class='embed-responsive__item' data='<c:out value="${document.attachment}"/>' type='application/pdf'>
 									<embed src='<c:out value="${document.attachment}"/>'/>
 								</object>
 							</div>
-						</c:if>
+						</div>
+						<div class='column small-4'>
+							<h3>Similar documents</h3>
+							<div class='grid'>
+								<c:if test="${recommendations != null && recommendations.size() > 0}">
+									<c:forEach var="recommendation" items="${recommendations}" varStatus="idx">
+										<div class='row'>
+											<div class='column small-12'>
+												<div class='thumbnail'>
+													<div class='thumbnail__caption'>
+														<h4><c:out value="${recommendation.title}"/></h4>
+														<p>
+															<a class='button button--default' href='${context}/resource/open?id=<c:out value="${recommendation.id}"/>'>Readme</a>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:forEach>
+								</c:if>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			
+			</c:if>
 		</section>
 		<footer id='footer' class='footer'>
 		
