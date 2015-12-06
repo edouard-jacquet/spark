@@ -23,6 +23,7 @@ public class SearchServlet extends HttpServlet {
 		ManageDocument manageDocument = new ManageDocument();
 		request.setAttribute("query", request.getParameter("query"));
 		request.setAttribute("documents", manageDocument.search(request));
+		request.setAttribute("documentCount", manageDocument.getDocumentCount());
 		request.setAttribute("currentPage", manageDocument.getCurrentPage());
 		request.setAttribute("maxPage", manageDocument.getMaxPage());
 		
