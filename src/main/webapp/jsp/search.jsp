@@ -62,10 +62,10 @@
 									<label for='personalization'>Personalization</label>
 								</div>
 							</div>
-							<c:if test="${documents != null && documents.size() > 0}">
+							<c:if test="${documents != null && documentCount > 0}">
 								<div id='details' class='row details'>
 									<div class='column small-12'>
-										About <c:out value="${documents.size()}"/> document <c:if test="${documents.size() > 1}">s</c:if>.
+										About <c:out value="${documentCount}"/> document<c:if test="${documentCount > 1}">s</c:if>.
 									</div>	
 								</div>
 							</c:if>
@@ -75,7 +75,7 @@
 				<div class='row'>
 					<div class='column small-12'>
 						<div class='grid'>
-							<c:if test="${documents != null && documents.size() > 0}">
+							<c:if test="${documents != null && documentCount > 0}">
 								<c:forEach var="document" items="${documents}" varStatus="idx">
 									<div class='row'>
 										<div class='column small-12'>
@@ -94,7 +94,7 @@
 									</div>
 								</c:forEach>
 							</c:if>
-							<c:if test="${documents != null && documents.size() == 0}">
+							<c:if test="${documents != null && documentCount == 0}">
 								<div class='row'>
 									<div class='column small-12'>
 										<h3>No Documents Found.</h3>
@@ -110,7 +110,7 @@
 			</div>
 		</section>
 		<footer id='footer' class='footer text-center'>
-			<c:if test="${documents != null && documents.size() > 0}">
+			<c:if test="${documents != null && documentCount > 0}">
 				<ul class='pagination'>
 					<c:if test="${currentPage == 1}">
 						<li class='disabled'><a href='#'>&larr;</a></li>
@@ -118,7 +118,7 @@
 					<c:if test="${currentPage > 1}">
 						<li><a href='${context}/search?query=<c:out value="${query}"/>&page=<c:out value="${currentPage - 1}"/>'>&larr;</a></li>
 					</c:if>
-					<c:forEach begin="1" end="" step="1" var="index">
+					<c:forEach begin="1" end="${maxPage}" step="1" var="index">
 						<c:if test="${index == currentPage}">
 							<li class='active'><a href='#'><c:out value="${index}"/></a></li>
 						</c:if>
