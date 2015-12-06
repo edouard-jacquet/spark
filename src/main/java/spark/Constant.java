@@ -8,10 +8,14 @@ public final class Constant {
 	public static final String ROOT_FOLDER = Constant.class.getResource("/").getPath().substring(0, Constant.class.getResource("/").getPath().indexOf("WEB-INF"));
 	
 	// storage
-	public static final String STORAGE_ROOT_FOLDER = Constant.ROOT_FOLDER +"storage/";
-	public static final String STORAGE_TEMPORARY_FOLDER = Constant.STORAGE_ROOT_FOLDER +"temporary/";
-	public static final String STORAGE_DOCUMENT_FOLDER = Constant.STORAGE_ROOT_FOLDER +"document/";
-	public static final String STORAGE_INDEX_FOLDER = Constant.STORAGE_ROOT_FOLDER +"index/";
+	public static final String STORAGE_ROOT_DIRECTORY = "storage";
+	public static final String STORAGE_ROOT_FOLDER = Constant.ROOT_FOLDER + Constant.STORAGE_ROOT_DIRECTORY +"/";
+	public static final String STORAGE_TEMPORARY_DIRECTORY = "temporary";
+	public static final String STORAGE_TEMPORARY_FOLDER = Constant.STORAGE_ROOT_FOLDER + Constant.STORAGE_TEMPORARY_DIRECTORY +"/";
+	public static final String STORAGE_DOCUMENT_DIRECTORY = "document";
+	public static final String STORAGE_DOCUMENT_FOLDER = Constant.STORAGE_ROOT_FOLDER + Constant.STORAGE_DOCUMENT_DIRECTORY +"/";
+	public static final String STORAGE_INDEX_DIRECTORY = "index";
+	public static final String STORAGE_INDEX_FOLDER = Constant.STORAGE_ROOT_FOLDER + Constant.STORAGE_INDEX_DIRECTORY +"/";
 	
 	// regex
 	public static final String REGEX_LOGIN = "[a-zA-Z][a-zA-Z0-9.]+";
