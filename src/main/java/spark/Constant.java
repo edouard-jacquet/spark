@@ -37,5 +37,6 @@ public final class Constant {
 	// document
 	public static final int DOCUMENT_MAXRESULT = 10;
 	public static final int DOCUMENT_QUERY_MINSIZE = 3;
+	public static final int DOCUMENT_SIMILAR_MAXRESULT = 4;
 
 }
