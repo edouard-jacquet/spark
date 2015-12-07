@@ -53,10 +53,12 @@
 					<div class='column small-12'>
 						<div class='grid'>
 							<div id='settings' class='row settings'>
+								<!--
 								<div class='column small-6 medium-3'>
 									<input id='recommendation' class='switch switch--primary' type='checkbox' name='recommendation' checked/>
 									<label for='recommendation'>Recommendation</label>
 								</div>
+								-->
 								<div class='column small-6 medium-3'>
 									<input id='personalization' class='switch switch--primary' type='checkbox' name='personalization' checked/>
 									<label for='personalization'>Personalization</label>
@@ -83,7 +85,7 @@
 												<div class='thumbnail__caption'>
 													<h3><c:out value="${document.title}"/></h3>
 													<p class='text-justify'>
-														
+														<c:out value="${document.summary}"/>
 													</p>
 													<p>
 														<a class='button button--default' href='${context}/resource/open?id=<c:out value="${document.id}"/>'>Readme</a>
