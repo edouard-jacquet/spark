@@ -91,6 +91,10 @@ public class Document {
 	})
 	private String title;
 	
+	@Column(name = "DOCUMENT_SUMMARY", length = 1000)
+	@Field(index = Index.NO, store = Store.YES, analyze = Analyze.NO)
+	private String summary;
+
 	@Column(name = "DOCUMENT_ATTACHMENT", length = 400, nullable = false)
 	@Fields({
 		@Field(
@@ -125,6 +129,14 @@ public class Document {
 	
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 	
 	public String getAttachment() {
