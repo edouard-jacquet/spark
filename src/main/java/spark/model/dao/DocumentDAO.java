@@ -19,11 +19,11 @@ public class DocumentDAO extends Dao<Document> {
 				.forEntity(Document.class).get();
 		
 		org.apache.lucene.search.Query luceneQuery = queryBuilder
-				.phrase()
-				.withSlop(10)
-				.onField("attachmentNgram")
-				.andField("attachmentEdgeNgram").boostedTo(5)
-				.sentence(query)
+				.keyword()
+				.onField("attachment")
+				.ignoreFieldBridge()
+				.andField("title").boostedTo(5)
+				.matching(query)
 				.createQuery();
 		
 		FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Document.class);
