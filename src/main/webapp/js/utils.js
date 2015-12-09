@@ -76,7 +76,7 @@ function displayNotifications(notifications) {
    => suggest
 \* ============================== */
 function suggest(url, query) {
-	if(!isEmpty(query) && !isBlank(query) && query.length >= _JAVA_queryMinSize) {
+	if(!isEmpty(query) && new RegExp(_JAVA_regexQuery).test(query)) {
 		if(_GLOBAL_ajax != null) {
 			_GLOBAL_ajax.abort();
 			_GLOBAL_ajax = null;
