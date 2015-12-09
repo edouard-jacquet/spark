@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Field;
+
 @Entity
 @Table(name = "SPARK_AUTHOR")
 public class Author {
@@ -16,31 +18,21 @@ public class Author {
 	@Column(name = "AUTHOR_ID")
 	private long id;
 	
-	@Column(name = "AUTHOR_SURNAME", length = 100, nullable = false)
-	private String surname;
-	
-	@Column(name = "AUTHOR_FIRSTNAME", length = 100, nullable = false)
-	private String firstname;
+	@Column(name = "AUTHOR_NAME", length = 200, nullable = false)
+	@Field
+	private String name;
 
 	
 	public long getId() {
 		return id;
 	}
 	
-	public String getSurname() {
-		return surname;
+	public String getName() {
+		return name;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

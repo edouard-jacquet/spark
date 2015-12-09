@@ -1,6 +1,9 @@
 package spark.model.manager;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -10,20 +13,25 @@ import javax.servlet.http.HttpServletRequest;
 import spark.Constant;
 import spark.controller.service.security.Hash;
 import spark.exception.NotificationException;
+import spark.model.bean.Author;
 import spark.model.bean.Document;
 import spark.model.bean.Notification;
+import spark.model.dao.AuthorDAO;
 import spark.model.dao.DocumentDAO;
+import spark.model.dao.SourceDAO;
 
 public class ManageDocument extends Manager {
 	
 	DocumentDAO documentDAO = new DocumentDAO();
+	AuthorDAO authorDAO = new AuthorDAO();
+	SourceDAO sourceDAO = new SourceDAO();
 	private List<Document> recommendations = new LinkedList<Document>();
 	private int documentCount = 0;
 	private int currentPage = 1;
 	private int maxPage = 1;
 	
 	
-	public void create(File temporaryFile) {
+	public void create(String title, String summary, String publicationDate, String authors, String source, File temporaryFile) throws ParseException {
 		String fileName = temporaryFile.getName();
 		fileName = fileName.substring(0, fileName.lastIndexOf("."));
 		fileName = Hash.generate("SHA-1", fileName);
@@ -33,8 +41,25 @@ public class ManageDocument extends Manager {
 		temporaryFile.delete();
 		
 		Document document = new Document();
-		document.setTitle("");
+		document.setTitle(title);
+		document.setSummary(summary);
 		document.setAttachment(fileName);
+		document.setUpdateDate(new Date());
+		document.setPublicationDate(new SimpleDateFormat("yyyy").parse(publicationDate));
+		
+		for(String name : authors.split(Constant.AUTHOR_SEPARATOR)) {
+			Author author = authorDAO.getByName(name);
+			
+			if(author == null) {
+				author = new Author();
+				author.setName(name);
+				author = authorDAO.create(author);
+			}
+			
+			document.getAuthors().add(author);
+		}
+		
+		document.setSource(sourceDAO.getByName(source));
 		documentDAO.create(document);
 	}
 	
