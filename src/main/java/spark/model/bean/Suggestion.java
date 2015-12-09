@@ -71,10 +71,6 @@ public class Suggestion {
 	@DocumentId
 	private long id;
 	
-	@Column(name = "SUGGESTION_LABEL", length = 200, nullable = false)
-	@Field(index = Index.NO, store = Store.YES, analyze = Analyze.NO)
-	private String label;
-	
 	@Column(name = "SUGGESTION_QUERY", length = 200, nullable = false)
 	@Fields({
 		@Field(name = "queryStandard",
@@ -92,21 +88,9 @@ public class Suggestion {
 	})
 	private String query;
 	
-	@Column(name = "SUGGESTION_COUNTER")
-	@Field(index = Index.NO, store = Store.YES, analyze = Analyze.NO)
-	private long counter;
-
 	
 	public long getId() {
 		return id;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
 	}
 
 	public String getQuery() {
@@ -115,14 +99,6 @@ public class Suggestion {
 
 	public void setQuery(String query) {
 		this.query = query;
-	}
-
-	public long getCounter() {
-		return counter;
-	}
-
-	public void setCounter(long counter) {
-		this.counter = counter;
 	}
 
 }
