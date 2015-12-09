@@ -74,7 +74,7 @@
 											<label class='form__label small-only--show' for=''>File</label>
 											<div class='input-group'>
 												<span class='input-group__addon'><span class='bootypo bootypo--file'></span></span>
-												<input class='form__control' type='file' name='file'/></input>
+												<input class='form__control' type='file' name='file' required title='Please select a file'/>
 											</div>
 										</div>
 									</div>

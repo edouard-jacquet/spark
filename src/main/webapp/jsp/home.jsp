@@ -42,7 +42,7 @@
 					<div class='column small-10 medium-6 small--centered'>
 						<form id='search' class='search' method='get' action='${context}/search'>
 							<div class='form__group'>
-								<input id='query' class='form__control query' type='search' name='query'/></input>
+								<input id='query' class='form__control query' type='search' name='query' pattern='${constant.REGEX_QUERY}' required title='Requires ${constant.QUERY_MINLENGTH} to ${constant.QUERY_MAXLENGTH} characters'/>
 							</div>
 							<div id='suggestions' class='list-group suggestions'></div>
 						</form>
