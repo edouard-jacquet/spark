@@ -45,7 +45,7 @@
 											<label class='form__label small-only--show' for=''>User</label>
 											<div class='input-group'>
 												<span class='input-group__addon'><span class='bootypo bootypo--user'></span></span>
-												<input class='form__control' type='text' name='login'/></input>
+												<input class='form__control' type='text' name='login' pattern='${constant.REGEX_LOGIN}' required title='Please enter a valid login'/>
 											</div>
 										</div>
 									</div>
@@ -56,7 +56,7 @@
 											<label class='form__label small-only--show' for=''>Password</label>
 											<div class='input-group'>
 												<span class='input-group__addon'><span class='bootypo bootypo--lock'></span></span>
-												<input class='form__control' type='password' name='password'/></input>
+												<input class='form__control' type='password' name='password' pattern='${constant.REGEX_PASSWORD}' required title='Please enter a valid password'/>
 											</div>
 										</div>
 									</div>

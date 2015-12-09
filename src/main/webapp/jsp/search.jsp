@@ -26,7 +26,7 @@
 					<form id='search' class='navigation-bar__form navigation-bar--left search' method='get' action='${context}/search'>
 						<div class='form__group'>
 							<div class='input-group'>
-								<input id='query' class='form__control query' type='text' name='query' value='<c:out value="${query}"/>'/>
+								<input id='query' class='form__control query' type='text' name='query' value='<c:out value="${query}"/>' pattern='${constant.REGEX_QUERY}' required title='Requires ${constant.QUERY_MINLENGTH} to ${constant.QUERY_MAXLENGTH} characters'/>
 								<span class='input-group__button'>
 									<button class='button button--primary'>
 										<span class='bootypo bootypo--search'></span>

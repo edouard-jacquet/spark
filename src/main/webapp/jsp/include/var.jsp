@@ -8,5 +8,5 @@
 
 <script>
 	var _JAVA_context = "${context}";
-	var _JAVA_queryMinSize = "${constant.SUGGESTION_QUERY_MINSIZE}";
+	var _JAVA_regexQuery = "^${constant.REGEX_QUERY}$"
 </script>

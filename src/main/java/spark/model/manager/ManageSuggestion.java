@@ -19,7 +19,7 @@ public class ManageSuggestion extends Manager {
 		List<Suggestion> suggestions = new LinkedList<Suggestion>();
 		String query = request.getParameter("query");
 		
-		if(query != null && query.length() >= Constant.SUGGESTION_QUERY_MINSIZE) {
+		if(query != null && query.matches(Constant.REGEX_QUERY)) {
 			query = query.toLowerCase();
 			suggestions = suggestionDAO.getByQueryOrderByScoring(query);
 		}
