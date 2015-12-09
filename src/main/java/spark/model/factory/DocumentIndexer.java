@@ -2,12 +2,12 @@ package spark.model.factory;
 
 import spark.model.bean.Document;
 
-public class DocumentIndexing {
+public class DocumentIndexer {
 	
-	private static final DocumentIndexing DOCUMENTINDEXING = new DocumentIndexing();
+	private static final DocumentIndexer DOCUMENTINDEXER = new DocumentIndexer();
 	
-	public static DocumentIndexing getInstance() {
-		return DOCUMENTINDEXING;
+	public static DocumentIndexer getInstance() {
+		return DOCUMENTINDEXER;
 	}
 	
 	public boolean rebuildIndex() {

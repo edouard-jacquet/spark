@@ -3,7 +3,7 @@ package spark.controller.servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import spark.model.factory.SuggestionIndexing;
+import spark.model.factory.SuggestionIndexer;
 
 public class InitializationServlet extends HttpServlet {
 
@@ -18,7 +18,7 @@ public class InitializationServlet extends HttpServlet {
 		System.out.println("---------------");
 		System.out.println("--------------- BUILD SUGGESTION INDEX START ----------");
 		System.out.println("---------------");
-		SuggestionIndexing.getInstance().rebuildIndex();
+		SuggestionIndexer.getInstance().rebuildIndex();
 		System.out.println("---------------");
 		System.out.println("--------------- BUILD SUGGESTION INDEX END ----------");
 		System.out.println("---------------");
