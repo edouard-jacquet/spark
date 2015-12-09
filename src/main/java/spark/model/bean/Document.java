@@ -133,10 +133,10 @@ public class Document {
 	
 	@Column(name = "DOCUMENT_PUBLICATIONDATE", nullable = false)
 	@Field(index = Index.YES, store = Store.YES, analyze = Analyze.NO)
+	@DateBridge(resolution = Resolution.YEAR)
 	private Date publicationDate;
 	
 	@Column(name = "DOCUMENT_UPDATEDATE", nullable = false)
-	@DateBridge(resolution = Resolution.YEAR)
 	private Date updateDate;
 	
 	@ManyToMany

@@ -7,4 +7,3 @@ $(document).ready(function() {
 		$('#drop-supported').css('display', 'none');
 	}
 });
-

@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import spark.exception.UploadException;
 import spark.exception.UploadExtensionException;
+import spark.exception.UploadFileNotFoundException;
 import spark.model.bean.JsonResponse;
 import spark.model.manager.ManageResource;
 import spark.model.manager.ManageUser;
@@ -40,7 +41,7 @@ private static final long serialVersionUID = 1L;
 				manageResource.upload(request);
 				jsonResponse.setNotifications(manageResource.getNotifications());
 			}
-			catch(UploadExtensionException | UploadException exception) {
+			catch(UploadException | UploadExtensionException | UploadFileNotFoundException exception) {
 				jsonResponse.setError(true);
 				jsonResponse.setNotifications(manageResource.getNotifications());
 			}

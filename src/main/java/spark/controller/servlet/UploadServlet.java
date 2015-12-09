@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import spark.exception.UploadException;
 import spark.exception.UploadExtensionException;
+import spark.exception.UploadFileNotFoundException;
 import spark.model.manager.ManageResource;
 import spark.model.manager.ManageUser;
 
@@ -40,7 +41,7 @@ private static final long serialVersionUID = 1L;
 				manageResource.upload(request);
 				request.setAttribute("notifications", manageResource.getNotifications());
 			}
-			catch(UploadExtensionException | UploadException exception) {
+			catch(UploadException | UploadExtensionException | UploadFileNotFoundException exception) {
 				request.setAttribute("notifications", manageResource.getNotifications());
 			}
 			finally {

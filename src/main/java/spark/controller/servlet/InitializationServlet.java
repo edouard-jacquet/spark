@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import spark.model.factory.SuggestionIndexer;
+import spark.model.manager.ManageSource;
 
 public class InitializationServlet extends HttpServlet {
 
@@ -16,11 +17,20 @@ public class InitializationServlet extends HttpServlet {
 		System.out.println("----------");
 		
 		System.out.println("---------------");
-		System.out.println("--------------- BUILD SUGGESTION INDEX START ----------");
+		System.out.println("--------------- BEAN DEPLOY START ----------");
+		System.out.println("---------------");
+		ManageSource manageSource = new ManageSource();
+		manageSource.deploy();
+		System.out.println("---------------");
+		System.out.println("--------------- BEAN DEPLOY END ----------");
+		System.out.println("---------------");
+		
+		System.out.println("---------------");
+		System.out.println("--------------- BUILD INDEX START ----------");
 		System.out.println("---------------");
 		SuggestionIndexer.getInstance().rebuildIndex();
 		System.out.println("---------------");
-		System.out.println("--------------- BUILD SUGGESTION INDEX END ----------");
+		System.out.println("--------------- BUILD INDEX END ----------");
 		System.out.println("---------------");
 		
 		System.out.println("----------");

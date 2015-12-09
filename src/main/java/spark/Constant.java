@@ -13,6 +13,8 @@ public final class Constant {
 	public static final int DOCUMENT_SIMILAR_MAXRESULT = 4;
 	// suggestion
 	public static final int SUGGESTION_MAXRESULT = 4;
+	// author
+	public static final String AUTHOR_SEPARATOR = "/";
 	
 	
 	/* ============================== *\
@@ -24,6 +26,7 @@ public final class Constant {
 	public static final String REGEX_ID = "[1-9][0-9]*";
 	public static final String REGEX_PAGE = "[1-9][0-9]*";
 	public static final String REGEX_QUERY = ".{"+ Constant.QUERY_MINLENGTH +","+ Constant.QUERY_MAXLENGTH +"}";
+	public static final String REGEX_YEAR = "[1-9][0-9]{3}";
 	
 	
 	/* ============================== *\
