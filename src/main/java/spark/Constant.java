@@ -1,7 +1,5 @@
 package spark;
 
-import org.apache.lucene.util.Version;
-
 public final class Constant {
 	
 	// root
@@ -26,6 +24,7 @@ public final class Constant {
 	public static final String REGEX_PASSWORD = "[a-zA-Z][a-zA-Z0-9.]+";
 	public static final String REGEX_ID = "[1-9][0-9]*";
 	public static final String REGEX_PAGE = "[1-9][0-9]*";
+	public static final String REGEX_QUERY = ".{3,50}";
 	
 	// session
 	public static final String SESSION_USER_NAME = "guest";
@@ -35,16 +34,11 @@ public final class Constant {
 	public static final String COOKIE_DELIMITER = "----";
 	public static final int COOKIE_MAXAGE = 60 * 60 * 24;
 	
-	// lucene
-	public static final Version LUCENE_VERSION = Version.LATEST;
+	// document
+	public static final int DOCUMENT_MAXRESULT = 10;
+	public static final int DOCUMENT_SIMILAR_MAXRESULT = 4;
 	
 	// suggestion
 	public static final int SUGGESTION_MAXRESULT = 4;
-	public static final int SUGGESTION_QUERY_MINSIZE = 3;
-	
-	// document
-	public static final int DOCUMENT_MAXRESULT = 10;
-	public static final int DOCUMENT_QUERY_MINSIZE = 3;
-	public static final int DOCUMENT_SIMILAR_MAXRESULT = 4;
 
 }
