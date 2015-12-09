@@ -2,12 +2,12 @@ package spark.model.factory;
 
 import spark.model.bean.Suggestion;
 
-public class SuggestionIndexing {
+public class SuggestionIndexer {
 	
-	private static final SuggestionIndexing SUGGESTIONINDEXING = new SuggestionIndexing();
+	private static final SuggestionIndexer SUGGESTIONINDEXER = new SuggestionIndexer();
 	
-	public static SuggestionIndexing getInstance() {
-		return SUGGESTIONINDEXING;
+	public static SuggestionIndexer getInstance() {
+		return SUGGESTIONINDEXER;
 	}
 	
 	public boolean rebuildIndex() {
