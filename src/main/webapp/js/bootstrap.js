@@ -84,7 +84,7 @@ $(document).ready(function() {
 
 
 /* ============================== *\
-=> TABS
+   => TABS
 \* ============================== */
 (function($, window, document, undefined) {
 	var pluginName = 'tabs';
@@ -143,4 +143,53 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	$('body').tabs();
+});
+
+
+/* ============================== *\
+   => MODAL
+\* ============================== */
+(function($, window, document, undefined) {
+	var pluginName = 'modal';
+	var defaults;
+
+	function Plugin(element, options) {
+		this.element = element;
+		this.options = $.extend({}, defaults, options);
+		this._name = pluginName;
+		this.init();
+	}
+
+	Plugin.prototype = {
+		init: function(options) {
+			this._callbackClose();
+		},
+		
+		_callbackClose: function(options) {
+			$('.modal__close').bind('click', function(e) {
+				e.preventDefault();
+				var trigger = $(this);
+				var container = $(trigger).parents('.modal');
+				
+				$(container).fadeOut(500, function() {
+					$(container).removeClass('open');
+				});
+			});
+		}
+	};
+
+	$.fn[pluginName] = function(options, extras) {
+		return this.each(function() {
+			if (!$.data(this, 'plugin_' + pluginName)) {
+				$.data(this, 'plugin_' + pluginName, new Plugin(this, options));
+			}
+			else if ($.isFunction(Plugin.prototype[options])) {
+				$.data(this, 'plugin_' + pluginName)[options](extras);
+			}
+		});
+	}
+})(jQuery, window, document);
+
+$(document).ready(function() {
+	$('body').modal();
 });

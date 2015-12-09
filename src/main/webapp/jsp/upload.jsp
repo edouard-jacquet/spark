@@ -57,6 +57,66 @@
 									</div>
 								</div>
 							</div>
+							<div id='drop-modal'class='drop-modal modal'>
+								<div class='modal__dialog'>
+									<div class='modal__header'>
+										<h4 class='modal__title'>Document Information</h4>
+									</div>
+									<div class='modal__body'>
+										<form id='drop-form' class='drop-form grid'>
+											<div class='row'>
+												<div class='column small-12'>
+													<div class='form__group'>
+														<label class='form__label small-only--show' for=''>Title</label>
+														<div class='input-group'>
+															<span class='input-group__addon'><span class='bootypo bootypo--header'></span></span>
+															<input class='form__control' type='text' name='title' required/>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class='row'>
+												<div class='column small-12'>
+													<div class='form__group'>
+														<label class='form__label small-only--show' for=''>Publication date</label>
+														<div class='input-group'>
+															<span class='input-group__addon'><span class='bootypo bootypo--calendar'></span></span>
+															<input class='form__control' type='text' name='publicationdate' required pattern='${constant.REGEX_YEAR}' title='Please enter a valid Year'/>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class='row'>
+												<div class='column small-12'>
+													<div class='form__group'>
+														<label class='form__label small-only--show' for=''>Authors</label>
+														<div class='input-group'>
+															<span class='input-group__addon'><span class='bootypo bootypo--user'></span></span>
+															<input class='form__control' type='text' name='authors' placeholder='separate by ${constant.AUTHOR_SEPARATOR}' required/>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class='row'>
+												<div class='column small-12'>
+													<div class='form__group'>
+														<label class='form__label small-only--show' for=''>Abstract</label>
+														<div class='input-group'>
+															<span class='input-group__addon'><span class='bootypo bootypo--text-background'></span></span>
+															<textarea class='form__control' name='summary' rows='10'></textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class='modal__footer'>
+										<button id='drop-confirm' class='drop-confirm button button--success'>Confirm</button>
+										<button id='drop-cancel' class='drop-cancel button button--alert'>Cancel</button>
+									</div>
+								</div>
+								<div class='modal__backdrop'></div>
+							</div>
 						</div>
 						<form id='drop-notsupported' class='panel panel-upload' method='post' action='${context}/resource/upload' enctype='multipart/form-data'>
 							<div class='panel__header grid'>
@@ -68,6 +128,50 @@
 								</div>
 							</div>
 							<div class='panel__body grid'>
+								<div class='row'>
+									<div class='column small-12'>
+										<div class='form__group'>
+											<label class='form__label small-only--show' for=''>Title</label>
+											<div class='input-group'>
+												<span class='input-group__addon'><span class='bootypo bootypo--header'></span></span>
+												<input class='form__control' type='text' name='title' required/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='column small-12'>
+										<div class='form__group'>
+											<label class='form__label small-only--show' for=''>Publication date</label>
+											<div class='input-group'>
+												<span class='input-group__addon'><span class='bootypo bootypo--calendar'></span></span>
+												<input class='form__control' type='text' name='publicationdate' required pattern='${constant.REGEX_YEAR}' title='Please enter a valid Year'/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='column small-12'>
+										<div class='form__group'>
+											<label class='form__label small-only--show' for=''>Authors</label>
+											<div class='input-group'>
+												<span class='input-group__addon'><span class='bootypo bootypo--user'></span></span>
+												<input class='form__control' type='text' name='authors' placeholder='separate by ${constant.AUTHOR_SEPARATOR}' required/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='column small-12'>
+										<div class='form__group'>
+											<label class='form__label small-only--show' for=''>Abstract</label>
+											<div class='input-group'>
+												<span class='input-group__addon'><span class='bootypo bootypo--text-background'></span></span>
+												<textarea class='form__control' name='summary' rows='10'></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
 								<div class='row'>
 									<div class='column small-12'>
 										<div class='form__group'>
