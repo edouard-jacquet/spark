@@ -17,8 +17,8 @@ public class SuggestionDAO extends Dao<Suggestion> {
 		org.apache.lucene.search.Query luceneQuery = queryBuilder
 				.phrase()
 				.withSlop(2)
-				.onField("queryNgram")
-				.andField("queryEdgeNgram").boostedTo(5)
+				.onField("queryEdgeNgram").boostedTo(5)
+				.andField("queryNgram")
 				.sentence(query)
 				.createQuery();
 

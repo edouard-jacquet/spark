@@ -76,7 +76,7 @@ public class Document {
 	
 	@Column(name = "DOCUMENT_TITLE", length = 200, nullable = false)
 	@Fields({
-		@Field(
+		@Field(name = "titleStandard",
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
 				analyzer = @Analyzer(definition = "documentStandard")
 		),
@@ -97,7 +97,7 @@ public class Document {
 
 	@Column(name = "DOCUMENT_ATTACHMENT", length = 400, nullable = false)
 	@Fields({
-		@Field(
+		@Field(name = "attachmentStandard",
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
 				analyzer = @Analyzer(definition = "documentStandard")
 		),
@@ -109,7 +109,7 @@ public class Document {
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
 				analyzer = @Analyzer(definition = "documentEdgeNgram")
 		),
-				@Field(name = "attachmentVectorStandard",
+		@Field(name = "attachmentVectorStandard",
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
 				termVector = TermVector.YES,
 				analyzer = @Analyzer(definition = "documentStandard")
