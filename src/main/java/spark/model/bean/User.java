@@ -1,10 +1,15 @@
 package spark.model.bean;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +30,10 @@ public class User {
 	@Column(name = "USER_KEY", length = 128, nullable = false)
 	private String key;
 	
+	@OneToMany(targetEntity = Session.class, cascade = CascadeType.ALL, mappedBy = "user")
+	private Set<Session> sessions = new HashSet<Session>();
 	
+
 	public long getId() {
 		return id;
 	}
@@ -52,6 +60,14 @@ public class User {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+	
+	public Set<Session> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(Set<Session> sessions) {
+		this.sessions = sessions;
 	}
 	
 }
