@@ -20,9 +20,9 @@ public class DocumentDAO extends Dao<Document> {
 		
 		org.apache.lucene.search.Query luceneQuery = queryBuilder
 				.keyword()
-				.onField("attachment")
+				.onField("titleStandard").boostedTo(5)
+				.andField("attachmentStandard")
 				.ignoreFieldBridge()
-				.andField("title").boostedTo(5)
 				.matching(query)
 				.createQuery();
 		

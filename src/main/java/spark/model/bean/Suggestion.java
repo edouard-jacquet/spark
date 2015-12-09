@@ -77,7 +77,7 @@ public class Suggestion {
 	
 	@Column(name = "SUGGESTION_QUERY", length = 200, nullable = false)
 	@Fields({
-		@Field(
+		@Field(name = "queryStandard",
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
 				analyzer = @Analyzer(definition = "suggestionStandard")
 		),
