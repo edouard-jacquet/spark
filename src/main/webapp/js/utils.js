@@ -52,8 +52,28 @@ function isBlank(string) {
 	return (!string || /^[\s].*$/.test(string));
 }
 
+
 /* ============================== *\
-=> displayNotification
+=> unserialize
+\* ============================== */
+function unserialize(string) {
+	var entrys = string.split("&");
+	var parameters = [];
+	
+	for(var i = 0 ; i < entrys.length ; i++) {
+		entry = entrys[i].split("=");
+		parameters[i] = [
+			decodeURIComponent(entry[0].replace(/\+/g, '%20')),
+			decodeURIComponent(entry[1].replace(/\+/g, '%20'))
+		];
+	}
+	
+	return parameters;
+}
+
+
+/* ============================== *\
+   => displayNotification
 \* ============================== */
 function displayNotifications(notifications) {
 	if(notifications != null) {
@@ -150,10 +170,18 @@ function suggest(url, query) {
 /* ============================== *\
    => xhrUpload
 \* ============================== */
-function xhrUpload(url, files, index) {
-	var file = files[index];
+function xhrUpload(url, file, parameters) {
 	var formData = new FormData();
+	
 	formData.append('file', file);
+	
+	if(parameters != null) {
+		params = unserialize(parameters);
+		for(var i = 0 ; i < params.length ; i++) {
+			formData.append(params[i][0], params[i][1]);
+		}
+	}
+	
 	var xhr = new XMLHttpRequest();
 	
 	xhr.addEventListener('load', function(event) {
@@ -186,7 +214,7 @@ function xhrUpload(url, files, index) {
 /* ============================== *\
    => dropToUpload
 \* ============================== */
-function dropToUpload(url) {
+function dropToUpload(url, parameters) {
 	$('#drop').on('dragover', function(event) {
 		event.preventDefault();
 		var trigger = $(this);
@@ -206,7 +234,42 @@ function dropToUpload(url) {
 		if(data) {
 			if(data.files.length) {
 				$('#notifications').css('display', 'none').empty();
-				xhrUpload(url, data.files, 0);
+				var file = data.files[0];
+
+				if($('#drop-modal').length > 0) {
+					$('#drop-modal').fadeIn(500, function() {
+						$('#drop-form')[0].reset();
+						
+						$('#drop-confirm').on('click', function(event) {
+							event.preventDefault();
+							var trigger = $(this);
+							
+							$('#drop-confirm').off('click');
+							$('#drop-cancel').off('click');
+							
+							$('#drop-modal').fadeOut(500, function() {
+								xhrUpload(url, file, $('#drop-form').serialize());
+								$('#drop-form')[0].reset();
+							});
+						});
+						
+						$('#drop-cancel').on('click', function(event) {
+							event.preventDefault();
+							var trigger = $(this);
+							
+							$('#drop-confirm').off('click');
+							$('#drop-cancel').off('click');
+							
+							$('#drop-modal').fadeOut(500, function() {
+								$('#drop-form')[0].reset();
+								$('#drop').removeClass('dropped');
+							});
+						});
+					});
+				}
+				else {
+					xhrUpload(url, file, parameters);
+				}
 			}
 		}
 	});
