@@ -20,7 +20,8 @@ public class ManageSuggestion extends Manager {
 		String query = request.getParameter("query");
 		
 		if(query != null && query.length() >= Constant.SUGGESTION_QUERY_MINSIZE) {
-			suggestions = suggestionDAO.getByQueryOrderByScoring(query.toLowerCase());
+			query = query.toLowerCase();
+			suggestions = suggestionDAO.getByQueryOrderByScoring(query);
 		}
 		
 		return suggestions;
