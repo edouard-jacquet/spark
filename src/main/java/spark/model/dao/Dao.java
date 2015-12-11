@@ -9,7 +9,7 @@ import javax.persistence.NonUniqueResultException;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 
-import spark.model.factory.Connection;
+import spark.model.connection.Database;
 
 @SuppressWarnings("unchecked")
 public abstract class Dao<T> implements IDao<T> {
@@ -22,8 +22,8 @@ public abstract class Dao<T> implements IDao<T> {
 	public Dao() {
 		this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
 				.getActualTypeArguments()[0];
-		this.entityManager = Connection.getInstance().getConnection();
-		this.fullTextEntityManager = Connection.getInstance().getFullTextConnection();
+		this.entityManager = Database.getInstance().getConnection();
+		this.fullTextEntityManager = Database.getInstance().getFullTextConnection();
 	}
 	
 	@Override
