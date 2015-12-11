@@ -36,44 +36,16 @@
 							<div class='row'>
 								<div class='column small-12 medium-3 large-2'>
 									<ul class='tabs__nav navigation navigation--pills navigation--stacked'>
-										<li class='active'><a href='#index'>Index</a></li>
+										<li class='active'><a href='#statistic'>Statistic</a></li>
+										<li><a href='#indexer'>Indexer</a></li>
 										<li><a href='#schedule'>Schedule</a></li>
 									</ul>
 								</div>
 								<div class='column small-12 medium-9 large-10'>
 									<div class='tabs__content'>
-										<div id='index' class='index tabs__pane open'>
-											<div class='grid'>
-												<div class='row'>
-													<div class='column small-12'>
-														<table>
-															<thead>
-																<tr>
-																	<th>Index</th>
-																	<th class='text-right'>Action</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>Document</td>
-																	<td class='text-right'><button id='index-document' class='index-document button button--primary'>Rebuild</button></td>
-																</tr>
-																<tr>
-																	<td>Suggestion</td>
-																	<td class='text-right'><button id='index-suggestion' class='index-suggestion button button--primary'>Rebuild</button></td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-													<div class='column small-12 text-center'>
-														<span id='index-loader' class='index-loader loader loader--double loader--primary'></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div id='schedule' class='schedule tabs__pane'>
-											
-										</div>
+										<c:import url="include/administration-statistic.jsp"/>
+										<c:import url="include/administration-indexer.jsp"/>
+										<c:import url="include/administration-shedule.jsp"/>
 									</div>
 								</div>
 							</div>

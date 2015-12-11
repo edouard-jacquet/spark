@@ -88,6 +88,11 @@ body {
 	margin-bottom: 30px;
 }
 
+.progress-container,
+.loader {
+	display: none;
+}
+
 @media only screen and (min-width: 640px) {
 	.navigation-bar__nav {
 		margin-right: 15px;

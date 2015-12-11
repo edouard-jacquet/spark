@@ -1,5 +1,7 @@
 package spark.model.indexer;
 
+import org.hibernate.search.batchindexing.MassIndexerProgressMonitor;
+import org.hibernate.search.batchindexing.impl.SimpleIndexingProgressMonitor;
 import org.jboss.logging.Logger;
 
 import spark.model.bean.Suggestion;
@@ -18,10 +20,15 @@ public class SuggestionIndexer extends Indexer {
 		return SUGGESTIONINDEXER;
 	}
 	
-	public boolean rebuild() {
+	public boolean rebuild(MassIndexerProgressMonitor massIndexerProgressMonitor) {
 		try {
+			if(massIndexerProgressMonitor == null) {
+				massIndexerProgressMonitor = new SimpleIndexingProgressMonitor();
+			}
+			
 			Database.getInstance().getFullTextConnection()
 					.createIndexer(Suggestion.class)
+					.progressMonitor(massIndexerProgressMonitor)
 					.startAndWait();
 			
 			logger.info("Suggestion index have been rebuilded.");
