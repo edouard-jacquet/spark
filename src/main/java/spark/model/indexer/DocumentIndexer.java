@@ -1,5 +1,7 @@
 package spark.model.indexer;
 
+import org.hibernate.search.batchindexing.MassIndexerProgressMonitor;
+import org.hibernate.search.batchindexing.impl.SimpleIndexingProgressMonitor;
 import org.jboss.logging.Logger;
 
 import spark.model.bean.Document;
@@ -18,10 +20,15 @@ public class DocumentIndexer extends Indexer {
 		return DOCUMENTINDEXER;
 	}
 	
-	public boolean rebuild() {
+	public boolean rebuild(MassIndexerProgressMonitor massIndexerProgressMonitor) {
 		try {
+			if(massIndexerProgressMonitor == null) {
+				massIndexerProgressMonitor = new SimpleIndexingProgressMonitor();
+			}
+			
 			Database.getInstance().getFullTextConnection()
 					.createIndexer(Document.class)
+					.progressMonitor(massIndexerProgressMonitor)
 					.startAndWait();
 			
 			logger.info("Document index have been rebuilded.");

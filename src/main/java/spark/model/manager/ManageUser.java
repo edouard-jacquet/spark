@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import spark.Constant;
 import spark.controller.service.http.Cookie;
@@ -97,6 +98,13 @@ public class ManageUser extends Manager {
 	
 	public boolean isLogged(HttpServletRequest request) {
 		if(Session.get(request, Constant.SESSION_USER_NAME) != null && Session.get(request, Constant.SESSION_USER_NAME) instanceof User) {
+			return true;
+		}	
+		return false;
+	}
+	
+	public boolean isLogged(HttpSession session) {
+		if(Session.get(session, Constant.SESSION_USER_NAME) != null && Session.get(session, Constant.SESSION_USER_NAME) instanceof User) {
 			return true;
 		}	
 		return false;
