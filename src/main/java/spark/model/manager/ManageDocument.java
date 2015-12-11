@@ -1,6 +1,9 @@
 package spark.model.manager;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,14 +34,11 @@ public class ManageDocument extends Manager {
 	private int maxPage = 1;
 	
 	
-	public void create(String title, String summary, String publicationDate, String authors, String source, File temporaryFile) throws ParseException {
+	public void create(String title, String summary, String publicationDate, String authors, String source, File temporaryFile) throws ParseException, IOException {
 		String fileName = temporaryFile.getName();
 		fileName = fileName.substring(0, fileName.lastIndexOf("."));
 		fileName = Hash.generate("SHA-1", fileName);
 		String filePath = Constant.STORAGE_DOCUMENT_FOLDER + fileName +".pdf";
-		
-		temporaryFile.renameTo(new File(filePath));
-		temporaryFile.delete();
 		
 		Document document = new Document();
 		document.setTitle(title);
@@ -47,7 +47,7 @@ public class ManageDocument extends Manager {
 		document.setUpdateDate(new Date());
 		document.setPublicationDate(new SimpleDateFormat("yyyy").parse(publicationDate));
 		
-		for(String name : authors.split(Constant.AUTHOR_SEPARATOR)) {
+		for(String name : authors.toLowerCase().split(Constant.AUTHOR_SEPARATOR)) {
 			Author author = authorDAO.getByName(name);
 			
 			if(author == null) {
@@ -60,6 +60,9 @@ public class ManageDocument extends Manager {
 		}
 		
 		document.setSource(sourceDAO.getByName(source));
+		
+		Files.move(Paths.get(temporaryFile.getPath()), Paths.get(filePath));
+		
 		documentDAO.create(document);
 	}
 	
