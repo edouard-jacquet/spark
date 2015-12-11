@@ -13,8 +13,8 @@ import com.google.gson.Gson;
 
 import spark.model.bean.JsonResponse;
 import spark.model.bean.Notification;
-import spark.model.factory.DocumentIndexer;
-import spark.model.factory.SuggestionIndexer;
+import spark.model.indexer.DocumentIndexer;
+import spark.model.indexer.SuggestionIndexer;
 import spark.model.manager.ManageUser;
 
 @WebServlet("/administration/index")
@@ -38,11 +38,11 @@ private static final long serialVersionUID = 1L;
 		if(manageUser.isLogged(request)) {
 			switch(index) {
 				case "document":
-					success = DocumentIndexer.getInstance().rebuildIndex();
+					success = DocumentIndexer.getInstance().rebuild();
 					
 					break;
 				case "suggestion":
-					success = SuggestionIndexer.getInstance().rebuildIndex();
+					success = SuggestionIndexer.getInstance().rebuild();
 					break;
 			}
 			
