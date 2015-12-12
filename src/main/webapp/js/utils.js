@@ -307,9 +307,29 @@ function waitWebSocketIsReady(callback) {
 
 
 /* ============================== *\
-=> closeWebSocket
+   => closeWebSocket
 \* ============================== */
 function closeWebSocket() {
 	_WEBSOCKET_.onclose = function() {};
 	_WEBSOCKET_.close();
+}
+
+/* ============================== *\
+   => formatTime
+\* ============================== */
+function formatTime(milliseconds) {
+	var formated = '';
+	
+	var date = new Date(milliseconds);
+	
+	var hours = date.getUTCHours().toString();
+	formated += ('0'+ hours).slice(-2) +':';
+	
+	var minutes = date.getUTCMinutes().toString();
+	formated += ('0'+ minutes).slice(-2) +':';
+	
+	var seconds = date.getUTCSeconds().toString();
+	formated += ('0'+ seconds).slice(-2);
+	
+	return formated;
 }

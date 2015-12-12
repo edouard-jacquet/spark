@@ -44,3 +44,9 @@
 	color: rgb(51, 51, 51);
 	line-height: 200px;
 }
+
+.indexer-left {
+	padding-right: 10px;
+	float: left;
+	display: none;
+}
