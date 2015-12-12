@@ -1,4 +1,5 @@
-var _GLOBAL_ajax = null;
+var _AJAX_ = null;
+var _WEBSOCKET_ = null;
 
 
 /* ============================== *\
@@ -73,7 +74,7 @@ function unserialize(string) {
 
 
 /* ============================== *\
-   => displayNotification
+   => displayNotifications
 \* ============================== */
 function displayNotifications(notifications) {
 	if(notifications != null) {
@@ -97,19 +98,19 @@ function displayNotifications(notifications) {
 \* ============================== */
 function suggest(url, query) {
 	if(!isEmpty(query) && new RegExp(_JAVA_regexQuery).test(query)) {
-		if(_GLOBAL_ajax != null) {
-			_GLOBAL_ajax.abort();
-			_GLOBAL_ajax = null;
+		if(_AJAX_ != null) {
+			_AJAX_.abort();
+			_AJAX_ = null;
 		}
 		
-		_GLOBAL_ajax = $.ajax({
+		_AJAX_ = $.ajax({
 			url: _JAVA_context + url,
 			method: 'get',
 			data: {query: query},
 			dataType: 'json'
 		});
 		
-		_GLOBAL_ajax.done(function(response) {
+		_AJAX_.done(function(response) {
 			if(response.error) {
 				return false;
 			}
@@ -157,7 +158,7 @@ function suggest(url, query) {
 			$('#suggestions').css('display', 'block').addClass('open');
 		});
 		
-		_GLOBAL_ajax.fail(function(xhr, textStatus) {
+		_AJAX_.fail(function(xhr, textStatus) {
 			$('#suggestions').css('display', 'none').removeClass('open');
 		});
 	}
@@ -187,7 +188,8 @@ function xhrUpload(url, file, parameters) {
 	xhr.addEventListener('load', function(event) {
 		var json = jQuery.parseJSON(event.target.responseText);
 		$('#drop').removeClass('dropped');
-		$('#progress-upload').removeClass('active');
+		$('#upload-progress').removeClass('active');
+		$('#upload-progresscontainer').css('display', 'none');
 		
 		displayNotifications(json.notifications);
 		$('#notifications').slideDown(500);
@@ -200,11 +202,12 @@ function xhrUpload(url, file, parameters) {
 	xhr.upload.addEventListener('progress',function(event) {
 		if(event.lengthComputable) {
 			var percent = Math.round((event.loaded / event.total) * 100) +'%';
-			$('#progress-upload').css('width', percent).html(percent);
+			$('#upload-progress').css('width', percent).html(percent);
 		}
 	}, false);
 	
-	$('#progress-upload').css('width', 0).html('0%').addClass('active');
+	$('#upload-progresscontainer').css('display', 'block');
+	$('#upload-progress').css('width', 0).html('0%').addClass('active');
 	
 	xhr.open('post', _JAVA_context + url, true);
 	xhr.send(formData);
@@ -273,4 +276,60 @@ function dropToUpload(url, parameters) {
 			}
 		}
 	});
+}
+
+
+/* ============================== *\
+   => openWebSocket
+\* ============================== */
+function openWebSocket(url, onMessageCallback, callback) {
+	_WEBSOCKET_ = new WebSocket(url);
+	_WEBSOCKET_.onmessage = onMessageCallback;
+	waitWebSocketIsReady(callback);
+}
+
+
+/* ============================== *\
+   => waitWebSocketIsReady
+\* ============================== */
+function waitWebSocketIsReady(callback) {
+	setTimeout(function() {
+		if(_WEBSOCKET_.readyState == 1) {
+			if(callback != null) {
+				callback();
+			}
+		}
+		else {
+			waitWebSocketIsReady(callback);
+		}
+	}, 5);
+}
+
+
+/* ============================== *\
+   => closeWebSocket
+\* ============================== */
+function closeWebSocket() {
+	_WEBSOCKET_.onclose = function() {};
+	_WEBSOCKET_.close();
+}
+
+/* ============================== *\
+   => formatTime
+\* ============================== */
+function formatTime(milliseconds) {
+	var formated = '';
+	
+	var date = new Date(milliseconds);
+	
+	var hours = date.getUTCHours().toString();
+	formated += ('0'+ hours).slice(-2) +':';
+	
+	var minutes = date.getUTCMinutes().toString();
+	formated += ('0'+ minutes).slice(-2) +':';
+	
+	var seconds = date.getUTCSeconds().toString();
+	formated += ('0'+ seconds).slice(-2);
+	
+	return formated;
 }
