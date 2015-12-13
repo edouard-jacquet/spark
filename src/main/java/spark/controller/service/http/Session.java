@@ -27,5 +27,10 @@ public class Session {
 		HttpSession session = request.getSession(true);
 		session.invalidate();
 	}
+	
+	public static String getKey(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		return session.getId();
+	}
 
 }
