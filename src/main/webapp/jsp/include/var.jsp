@@ -4,7 +4,7 @@
 
 <c:set var="context" value="${pageContext.request.contextPath}" scope="request"/>
 <c:set var="constant" value="${applicationScope.constant}" scope="application"/>
-<c:set var="guest" value="${sessionScope.guest}" scope="request"/>
+<c:set var="user" value="${sessionScope[constant.SESSION_USER_NAME]}" scope="request"/>
 
 <script>
 	var _JAVA_context = "${context}";

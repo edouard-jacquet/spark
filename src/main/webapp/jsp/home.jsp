@@ -23,7 +23,7 @@
 					<button class='button navigation-bar__toggle' type='button'><span class='bootypo bootypo--menu-hamburger '></span></button>
 				</div>
 				<div class='navigation-bar__body'>
-					<c:import url="include/guest.jsp"/>
+					<c:import url="include/navbar-access.jsp"/>
 				</div>
 			</div>
 		</header>

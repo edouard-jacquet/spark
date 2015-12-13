@@ -33,9 +33,9 @@ public final class Constant {
 	   => HTTP
 	\* ============================== */
 	// session
-	public static final String SESSION_USER_NAME = "guest";
+	public static final String SESSION_USER_NAME = "SPARKUSER";
 	// cookie
-	public static final String COOKIE_USER_NAME = "spark_auth";
+	public static final String COOKIE_USER_NAME = "SPARKUSER";
 	public static final String COOKIE_DELIMITER = "----";
 	public static final int COOKIE_MAXAGE = 60 * 60 * 24;
 	
