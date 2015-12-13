@@ -23,7 +23,7 @@
 					<a class='navigation-bar__brand' href='${context}/home'>Spark</a>
 				</div>
 				<div class='navigation-bar__body'>
-					<c:import url="include/guest.jsp"/>
+					<c:import url="include/navbar-access.jsp"/>
 				</div>
 			</div>
 		</header>

@@ -36,7 +36,7 @@
 						</div>
 						<div id='suggestions' class='list-group suggestions'></div>
 					</form>
-					<c:import url="include/guest.jsp"/>
+					<c:import url="include/navbar-access.jsp"/>
 				</div>
 			</div>
 		</header>
