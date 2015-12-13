@@ -14,20 +14,29 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import spark.Constant;
+import spark.controller.service.http.Session;
 import spark.controller.service.security.Hash;
 import spark.exception.NotificationException;
 import spark.model.bean.Author;
 import spark.model.bean.Document;
 import spark.model.bean.Notification;
+import spark.model.bean.Query;
+import spark.model.bean.User;
 import spark.model.dao.AuthorDAO;
 import spark.model.dao.DocumentDAO;
+import spark.model.dao.QueryDAO;
+import spark.model.dao.SessionDAO;
 import spark.model.dao.SourceDAO;
+import spark.model.dao.UserDAO;
 
 public class ManageDocument extends Manager {
 	
 	DocumentDAO documentDAO = new DocumentDAO();
 	AuthorDAO authorDAO = new AuthorDAO();
 	SourceDAO sourceDAO = new SourceDAO();
+	SessionDAO sessionDAO = new SessionDAO();
+	UserDAO userDAO = new UserDAO();
+	QueryDAO queryDAO = new QueryDAO();
 	private List<Document> recommendations = new LinkedList<Document>();
 	private int documentCount = 0;
 	private int currentPage = 1;
@@ -81,6 +90,62 @@ public class ManageDocument extends Manager {
 		Document document = documentDAO.getById(Long.parseLong(id));
 		
 		if(document != null) {
+			boolean sessionIsCreated = false;
+			boolean queryIsAdded = false;
+			boolean documentIsAdded = false;
+			
+			String sessionKey = Session.getKey(request);
+			spark.model.bean.Session storedSession = sessionDAO.getByKey(sessionKey);
+			
+			if(storedSession == null) {
+				storedSession = new spark.model.bean.Session();
+				storedSession.setKey(sessionKey);
+				storedSession.setDate(new Date());
+				sessionIsCreated = true;
+			}
+			
+			Query querySession = (Query) Session.get(request, Constant.SESSION_QUERY_NAME);
+			
+			if(querySession != null) {
+				String queryValue = querySession.getValue();
+				Query storedQuery = queryDAO.getByValue(queryValue);
+				
+				if(storedQuery == null) {
+					storedQuery = new Query();
+					storedQuery.setValue(queryValue);
+					storedQuery = queryDAO.create(storedQuery);
+				}
+				
+				queryIsAdded = !sessionDAO.isExistByKeyAndQuery(sessionKey, storedQuery);
+				
+				if(queryIsAdded) {
+					storedSession.getQuerys().add(storedQuery);
+				}
+			}
+			
+			ManageUser manageUser = new ManageUser();
+
+			if(manageUser.isLogged(request)) {
+				User userLogged = (User) Session.get(request, Constant.SESSION_USER_NAME); 
+				userLogged = userDAO.getById(userLogged.getId());
+				storedSession.setUser(userLogged);
+				
+				documentIsAdded = !sessionDAO.isExistByKeyAndDocument(sessionKey, document);
+				
+				if(documentIsAdded) {
+					storedSession.getDocuments().add(document);
+				}
+			}
+
+			if(queryIsAdded || documentIsAdded) {
+				if(sessionIsCreated) {
+					sessionDAO.create(storedSession);
+				}
+				else {
+					sessionDAO.update(storedSession);
+				}
+			}
+			
 			recommendations = documentDAO.getSimilarByDocumentOrderByScoring(document);
 		}
 		
@@ -104,6 +169,10 @@ public class ManageDocument extends Manager {
 			
 			if(documentCount > 0) {
 				maxPage = (int) Math.ceil(((float) documentCount) / Constant.DOCUMENT_MAXRESULT);
+				
+				Query querySession = new Query();
+				querySession.setValue(query);
+				Session.set(request, Constant.SESSION_QUERY_NAME, querySession);
 			}
 		}
 		
