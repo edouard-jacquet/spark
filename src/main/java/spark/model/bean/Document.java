@@ -16,12 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.apache.lucene.analysis.core.KeywordTokenizerFactory;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
-import org.apache.lucene.analysis.core.StopFilterFactory;
 import org.apache.lucene.analysis.miscellaneous.WordDelimiterFilterFactory;
-import org.apache.lucene.analysis.ngram.EdgeNGramFilterFactory;
-import org.apache.lucene.analysis.ngram.NGramFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
@@ -35,7 +31,6 @@ import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.search.annotations.TermVector;
@@ -51,28 +46,6 @@ import spark.model.bridge.PdfBridge;
 					@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 					@TokenFilterDef(factory = WordDelimiterFilterFactory.class)
 			}
-	),
-	@AnalyzerDef(name = "documentNgram",
-			tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-			filters = {
-					@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-					@TokenFilterDef(factory = WordDelimiterFilterFactory.class),
-					@TokenFilterDef(factory = NGramFilterFactory.class, params = {
-							@Parameter(name = "minGramSize", value = "3"),
-							@Parameter(name = "maxGramSize", value = "5")
-					})
-			}
-	),
-	@AnalyzerDef(name = "documentEdgeNgram",
-		tokenizer = @TokenizerDef(factory = KeywordTokenizerFactory.class),
-		filters = {
-				@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-				@TokenFilterDef(factory = StopFilterFactory.class),
-				@TokenFilterDef(factory = EdgeNGramFilterFactory.class, params = {
-						@Parameter(name = "minGramSize", value = "3"),
-						@Parameter(name = "maxGramSize", value = "50")
-				})
-		}
 	)
 })
 
@@ -92,14 +65,6 @@ public class Document {
 		@Field(name = "titleStandard",
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
 				analyzer = @Analyzer(definition = "documentStandard")
-		),
-		@Field(name = "titleNgram",
-				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
-				analyzer = @Analyzer(definition = "documentNgram")
-		),
-		@Field(name = "titleEdgeNgram",
-				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
-				analyzer = @Analyzer(definition = "documentEdgeNgram")
 		)
 	})
 	private String title;
@@ -113,14 +78,6 @@ public class Document {
 		@Field(name = "attachmentStandard",
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
 				analyzer = @Analyzer(definition = "documentStandard")
-		),
-		@Field(name = "attachmentNgram",
-				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
-				analyzer = @Analyzer(definition = "documentNgram")
-		),
-		@Field(name = "attachmentEdgeNgram",
-				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
-				analyzer = @Analyzer(definition = "documentEdgeNgram")
 		),
 		@Field(name = "attachmentVectorStandard",
 				index = Index.YES, store = Store.NO, analyze = Analyze.YES,
