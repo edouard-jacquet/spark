@@ -34,6 +34,8 @@ public final class Constant {
 	\* ============================== */
 	// session
 	public static final String SESSION_USER_NAME = "SPARKUSER";
+	public static final String SESSION_SESSION_NAME = "SPARKSESSION";
+	public static final String SESSION_QUERY_NAME = "SPARKQUERY";
 	// cookie
 	public static final String COOKIE_USER_NAME = "SPARKUSER";
 	public static final String COOKIE_DELIMITER = "----";
