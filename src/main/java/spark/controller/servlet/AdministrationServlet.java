@@ -79,9 +79,8 @@ public class AdministrationServlet extends HttpServlet {
 		}
 		
 		int digitGroup = (int) (Math.log10(size) / Math.log10(1024));
-		int value = (int) Math.ceil(size / Math.pow(1024, digitGroup));
 		String unit = units[digitGroup];
 
-		return new Object[]{value, unit};
+		return new Object[]{size, unit};
 	}
 }

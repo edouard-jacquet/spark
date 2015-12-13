@@ -8,6 +8,14 @@ var _INDEXER_ = {
 	timer: null
 };
 
+var _UNITS_ = {
+	"B": 0,
+	'kB': 1,
+	'MB': 2,
+	'GB': 3,
+	'TB': 4
+};
+
 
 $(document).ready(function() {
 	
@@ -32,9 +40,18 @@ $(document).ready(function() {
 		illustration.beginPath();
 		var caption = $(container).find('.graph__caption');
 		var color = $(container).data('color');
-		var max = $(container).data('max');
-		var value = $(container).data('value');
 		var unit = $(container).data('unit');
+		
+		if(typeof unit != 'undefined' && unit.length > 0 && _UNITS_[unit] != 'undefined') {
+			var max = Math.ceil($(container).data('max') / Math.pow(1024, _UNITS_[unit]));
+			var value = Math.ceil($(container).data('value') / Math.pow(1024, _UNITS_[unit]));
+			console.log(max);
+			console.log(value);
+		}
+		else {
+			var max = $(container).data('max');
+			var value = $(container).data('value');
+		}
 		
 		renderGraphRounded(container, illustration, caption, color, max, value, unit, 1000);
 	});
@@ -81,13 +98,12 @@ function renderGraphRounded(container, illustration, caption, color, max, value,
 		illustration.strokeStyle = color;
 		illustration.stroke();
 		
-		if(typeof unit == 'undefined') {
-			caption.html((value * progress).toFixed());
-		}
-		else {
+		if(typeof unit != 'undefined') {
 			caption.html((value * progress).toFixed() +' '+ unit);
 		}
-		
+		else {
+			caption.html((value * progress).toFixed());
+		}
 		
 		if(progress < 1) {
 			setTimeout(function() {
