@@ -1,14 +1,12 @@
 package spark.model.bridge;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.pdfbox.cos.COSDocument;
-import org.apache.pdfbox.pdfparser.PDFParser;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.util.PDFTextStripper;
 import org.hibernate.search.bridge.StringBridge;
+
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
+import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
 
 import spark.Constant;
 
@@ -18,32 +16,20 @@ public class PdfBridge implements StringBridge {
 	public String objectToString(Object object) {
 		String fileName = object.toString();
 		String filePath = Constant.STORAGE_DOCUMENT_FOLDER + fileName +".pdf";
-		
-		PDFTextStripper pdfTextStripper = null;
-		PDDocument pdDocument = null;
-		COSDocument cosDocument = null;
-		
-		File pdf = new File(filePath);
+		String content = "";
 		
 		try {
-			PDFParser pdfParser = new PDFParser(new FileInputStream(pdf));
-			pdfParser.parse();
-			cosDocument = pdfParser.getDocument();
-			pdfTextStripper = new PDFTextStripper();
-			pdDocument = new PDDocument(cosDocument);
-			String content = pdfTextStripper.getText(pdDocument);
+			PdfReader pdfReader = new PdfReader(filePath);
+			PdfReaderContentParser pdfReaderContentParser = new PdfReaderContentParser(pdfReader);
+			
+			for(int i = 1 ; i <= pdfReader.getNumberOfPages() ; i++) {
+				content += pdfReaderContentParser.processContent(i, new SimpleTextExtractionStrategy()).getResultantText();
+			}
+			
 			return content;
 		}
 		catch(IOException exception) {
 			return "";
-		}
-		finally {
-			try {
-				pdDocument.close();
-			}
-			catch(IOException exception) {
-				exception.printStackTrace();
-			}
 		}
 	}
 
