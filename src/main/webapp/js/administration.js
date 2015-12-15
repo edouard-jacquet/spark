@@ -1,10 +1,5 @@
 var _INDEXER_ = {
-	name: null,
-	size: null,
-	builded: null,
-	left: null,
-	lastTime: null,
-	lastEstimateTime: null,
+	timeLeft: null,
 	timer: null
 };
 
@@ -45,8 +40,6 @@ $(document).ready(function() {
 		if(typeof unit != 'undefined' && unit.length > 0 && _UNITS_[unit] != 'undefined') {
 			var max = Math.ceil($(container).data('max') / Math.pow(1024, _UNITS_[unit]));
 			var value = Math.ceil($(container).data('value') / Math.pow(1024, _UNITS_[unit]));
-			console.log(max);
-			console.log(value);
 		}
 		else {
 			var max = $(container).data('max');
@@ -60,18 +53,28 @@ $(document).ready(function() {
 		event.preventDefault();
 		var trigger = $(this);
 		
-		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/indexer", receiveRebuildMessage, function() {
-			rebuild('document');
-		});
+		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/indexer",
+			rebuildIndexError,
+			rebuildIndexOpen,
+			rebuildIndexMessage,
+			function() {
+				rebuildIndex('document');
+			}
+		);
 	});
 	
 	$('#indexer-suggestion').bind('click', function(event) {
 		event.preventDefault();
 		var trigger = $(this);
 		
-		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/indexer", receiveRebuildMessage, function() {
-			rebuild('suggestion');
-		});
+		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/indexer",
+			rebuildIndexError,
+			rebuildIndexOpen,
+			rebuildIndexMessage,
+			function() {
+				rebuildIndex('suggestion');
+			}
+		);
 	});
 	
 });
@@ -119,58 +122,55 @@ function renderGraphRounded(container, illustration, caption, color, max, value,
 /* ============================== *\
    => Indexer
 \* ============================== */
-function rebuild(indexName) {
+function rebuildIndex(indexName) {
 	$('.indexer__rebuild').addClass('disabled');
 	
-	_INDEXER_.name = indexName;
-	_INDEXER_.builded = 0;
-	_INDEXER_.lastTime = new Date().getTime();
-	
-	$('#indexer-progress').css('width', 0).html('0%').addClass('active');
-	$('#indexer-left').css('display', 'inline-block').html('--:--:--');
-	$('#indexer-progresscontainer').css('display', 'block');
-	
-	_INDEXER_.timer = setInterval(rebuildLeft, 1000);
-	_WEBSOCKET_.send('{"action":"rebuild", "index":"'+ _INDEXER_.name +'"}');
+	_WEBSOCKET_.send('{"action":"rebuildIndex", "index":"'+ indexName +'"}');
 }
 
-function rebuildLeft() {
-	if(_INDEXER_.left >= 1000) {
-		_INDEXER_.left -= 1000;
-		$('#indexer-left').html(formatTime(_INDEXER_.left));
+function rebuildTimeLeft() {
+	if(_INDEXER_.timeLeft >= 1000) {
+		_INDEXER_.timeLeft -= 1000;
+		$('#indexer-left').html(formatTime(_INDEXER_.timeLeft));
 	}
-	else if(_INDEXER_.left != null && _INDEXER_.timer != null) {
+	else if(_INDEXER_.timeLeft != null && _INDEXER_.timer != null) {
 		clearInterval(_INDEXER_.timer);
 	}
 }
 
-function receiveRebuildMessage(message) {
-	var response = JSON.parse(message.data);
+function rebuildIndexError() {
 	
-	switch(response.operation) {
-		case 'addToTotalCount':
-			_INDEXER_.size = response.count;
+}
+
+function rebuildIndexOpen(event) {
+	
+}
+
+function rebuildIndexMessage(event) {
+	var response = JSON.parse(event.data);
+	
+	switch(response.type) {
+		case 'rebuildIndexAccept':
+			if(!response.accept) {
+				$('#notifications').css('display', 'none').empty();
+				displayNotifications([response.notifications]);
+				$('#notifications').slideDown(500);
+			}
+			
+			$('#indexer-progress').css('width', 0).html('0%').addClass('active');
+			$('#indexer-left').css('display', 'inline-block').html('--:--:--');
+			$('#indexer-progresscontainer').css('display', 'block');
+			
+			_INDEXER_.timer = setInterval(rebuildTimeLeft, 1000);
 			break;
-		case 'documentsBuilt':
-			_INDEXER_.builded += response.number;
-			var now = new Date().getTime();
-			var old = _INDEXER_.lastTime;
-			_INDEXER_.lastTime = now;
-			var estimatedTime = now - old;
 			
-			if(_INDEXER_.lastEstimateTime != null) {
-				_INDEXER_.lastEstimateTime = (_INDEXER_.lastEstimateTime + estimatedTime) / 2;
-			}
-			else {
-				_INDEXER_.lastEstimateTime = estimatedTime;
-			}
-			
-			_INDEXER_.left = (_INDEXER_.size - _INDEXER_.builded) * _INDEXER_.lastEstimateTime;
-			
-			var percent = Math.round((_INDEXER_.builded / _INDEXER_.size) * 100) +'%';
+		case 'rebuildIndexProgress':
+			_INDEXER_.timeLeft = response.timeLeft;
+			var percent = (response.progress * 100) +'%';
 			$('#indexer-progress').css('width', percent).html(percent);
 			break;
-		case 'indexingCompleted':
+			
+		case 'rebuildIndexCompleted':
 			closeWebSocket();
 			
 			$('#indexer-progress').removeClass('active');
@@ -182,11 +182,7 @@ function receiveRebuildMessage(message) {
 			
 			_INDEXER_ = {
 				name: null,
-				size: null,
-				builded: null,
-				left: null,
-				lastTime: null,
-				lastEstimateTime: null,
+				timeLeft: null,
 				timer: null
 			};
 			
@@ -197,6 +193,5 @@ function receiveRebuildMessage(message) {
 			displayNotifications([response.notifications]);
 			$('#notifications').slideDown(500);
 			break;
-		
 	}
 }

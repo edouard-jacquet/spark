@@ -282,8 +282,10 @@ function dropToUpload(url, parameters) {
 /* ============================== *\
    => openWebSocket
 \* ============================== */
-function openWebSocket(url, onMessageCallback, callback) {
+function openWebSocket(url, onErrorCallback, onOpenCallback, onMessageCallback, callback) {
 	_WEBSOCKET_ = new WebSocket(url);
+	_WEBSOCKET_.onerror = onErrorCallback;
+	_WEBSOCKET_.onopen = onOpenCallback;
 	_WEBSOCKET_.onmessage = onMessageCallback;
 	waitWebSocketIsReady(callback);
 }
