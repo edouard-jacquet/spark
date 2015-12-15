@@ -1,10 +1,12 @@
 package spark.controller.websocket;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.jboss.logging.Logger;
@@ -13,8 +15,8 @@ import com.google.gson.Gson;
 
 public abstract class WebSocket implements IWebSocket {
 	
-	protected Logger logger;
-	protected HttpSession httpSession;
+	protected static Logger logger;
+	protected static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
 	protected void sendMessage(String message, Session session) {
 		try {
@@ -22,6 +24,14 @@ public abstract class WebSocket implements IWebSocket {
 		}
 		catch(IOException exception) {
 			exception.printStackTrace();
+		}
+	}
+	
+	protected void sendAllMessage(String message) {
+		synchronized(sessions) {
+			for(Session session : sessions) {
+				sendMessage(message, session);
+			}
 		}
 	}
 	
