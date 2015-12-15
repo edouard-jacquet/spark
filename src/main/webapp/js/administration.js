@@ -181,7 +181,6 @@ function rebuildIndexMessage(event) {
 			}
 			
 			_INDEXER_ = {
-				name: null,
 				timeLeft: null,
 				timer: null
 			};
