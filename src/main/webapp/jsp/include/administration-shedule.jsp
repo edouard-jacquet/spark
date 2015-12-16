@@ -32,7 +32,7 @@
 											<span class='input-group__addon'><span class='bootypo bootypo--calendar'></span></span>
 											<input class='form__control' type='text' name='trigger' required value='<c:out value="${scheduleConfiguration['trigger']}"/>'/>
 										</div>
-										<span class='form__help'><span class='bootypo bootypo--circle-question-mark'></span>Unix cron syntax.</span>
+										<span class='form__help'><span class='bootypo bootypo--circle-question-mark'></span>Use unix cron syntax</span>
 									</div>
 								</div>
 							</div>
