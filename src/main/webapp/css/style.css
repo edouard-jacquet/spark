@@ -88,9 +88,26 @@ body {
 	margin-bottom: 30px;
 }
 
+.row--bottom-35 {
+	margin-bottom: 35px;
+}
+
+.row--bottom-40 {
+	margin-bottom: 40px;
+}
+
 .progress-container,
 .loader {
 	display: none;
+}
+
+.form__help {
+	margin-top: 4px;
+}
+
+.form__help > .bootypo {
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 @media only screen and (min-width: 640px) {
