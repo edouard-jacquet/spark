@@ -39,8 +39,9 @@
 						<label class='form__label small-only--show' for=''>Authors</label>
 						<div class='input-group'>
 							<span class='input-group__addon'><span class='bootypo bootypo--user'></span></span>
-							<input class='form__control' type='text' name='authors' placeholder='separate by ${constant.AUTHOR_SEPARATOR}' required/>
+							<input class='form__control' type='text' name='authors' required/>
 						</div>
+						<span class='form__help'><span class='bootypo bootypo--circle-question-mark'></span>Sort by [surname firstname] AND separate different authors by ${constant.AUTHOR_SEPARATOR}</span>
 					</div>
 				</div>
 			</div>
