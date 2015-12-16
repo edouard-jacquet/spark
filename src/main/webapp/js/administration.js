@@ -49,7 +49,7 @@ $(document).ready(function() {
 		renderGraphRounded(container, illustration, caption, color, max, value, unit, 1000);
 	});
 	
-	$('#indexer-document').bind('click', function(event) {
+	$('.indexer__rebuild').bind('click', function(event) {
 		event.preventDefault();
 		var trigger = $(this);
 		
@@ -58,21 +58,7 @@ $(document).ready(function() {
 			rebuildIndexOpen,
 			rebuildIndexMessage,
 			function() {
-				rebuildIndex('document');
-			}
-		);
-	});
-	
-	$('#indexer-suggestion').bind('click', function(event) {
-		event.preventDefault();
-		var trigger = $(this);
-		
-		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/indexer",
-			rebuildIndexError,
-			rebuildIndexOpen,
-			rebuildIndexMessage,
-			function() {
-				rebuildIndex('suggestion');
+				rebuildIndex($(trigger).data('index'));
 			}
 		);
 	});
