@@ -15,11 +15,11 @@
 						<tbody>
 							<tr>
 								<td>Document</td>
-								<td class='text-right'><button id='indexer-document' class='indexer-document indexer__rebuild button button--primary'>Rebuild</button></td>
+								<td class='text-right'><button id='indexer-document' class='indexer-document indexer__rebuild button button--primary' data-index='document'>Rebuild</button></td>
 							</tr>
 							<tr>
 								<td>Suggestion</td>
-								<td class='text-right'><button id='indexer-suggestion' class='indexer-suggestion indexer__rebuild button button--primary'>Rebuild</button></td>
+								<td class='text-right'><button id='indexer-suggestion' class='indexer-suggestion indexer__rebuild button button--primary' data-index='suggestion'>Rebuild</button></td>
 							</tr>
 						</tbody>
 					</table>
