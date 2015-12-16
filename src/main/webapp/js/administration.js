@@ -151,11 +151,9 @@ function rebuildIndexMessage(event) {
 	
 	switch(response.type) {
 		case 'rebuildIndexAccept':
-			if(!response.accept) {
-				$('#notifications').css('display', 'none').empty();
-				displayNotifications([response.notifications]);
-				$('#notifications').slideDown(500);
-			}
+			$('#notifications').css('display', 'none').empty();
+			displayNotifications([response.notifications]);
+			$('#notifications').slideDown(500);
 			
 			$('#indexer-progress').css('width', 0).html('0%').addClass('active');
 			$('#indexer-left').css('display', 'inline-block').html('--:--:--');

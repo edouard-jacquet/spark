@@ -46,7 +46,9 @@
 }
 
 .indexer-left {
-	padding-right: 10px;
+	height: 20px;
+	margin-right: 5px;
+	border-radius: 5px;
 	float: left;
 	display: none;
 }
