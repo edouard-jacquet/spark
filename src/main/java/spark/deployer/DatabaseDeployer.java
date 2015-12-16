@@ -2,8 +2,10 @@ package spark.deployer;
 
 import org.jboss.logging.Logger;
 
+import spark.model.bean.Configuration;
 import spark.model.bean.Source;
 import spark.model.bean.User;
+import spark.model.dao.ConfigurationDAO;
 import spark.model.dao.SourceDAO;
 import spark.model.dao.UserDAO;
 
@@ -56,6 +58,22 @@ public class DatabaseDeployer extends Deployer {
 			}
 			
 			logger.info(sources.length +" sources have been added.");
+		}
+		
+		ConfigurationDAO configurationDAO = new ConfigurationDAO();
+		if(configurationDAO.getAll().size() == 0) {
+			String[][] configurations = {
+				{"schedule", "{active:true, trigger:'0 0 12 ? * 1L', sources: []}"}
+			};
+			
+			for(String[] entry : configurations) {
+				Configuration configuration = new Configuration();
+				configuration.setKey(entry[0]);
+				configuration.setValue(entry[1]);
+				configurationDAO.create(configuration);
+			}
+			
+			logger.info(configurations.length +" configurations have been added.");
 		}
 		
 		System.out.println("----------");

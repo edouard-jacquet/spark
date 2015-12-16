@@ -18,8 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.mutable.MutableLong;
 
+import com.google.gson.Gson;
+
 import spark.Constant;
+import spark.model.dao.ConfigurationDAO;
 import spark.model.dao.DocumentDAO;
+import spark.model.dao.SourceDAO;
 import spark.model.dao.SuggestionDAO;
 import spark.model.dao.UserDAO;
 import spark.model.manager.ManageUser;
@@ -31,10 +35,12 @@ public class AdministrationServlet extends HttpServlet {
 	private final String[] units = new String[]{"B", "kB", "MB", "GB", "TB"};
 	private Map<String, Object> statistics = new HashMap<String, Object>();
 	
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ManageUser manageUser = new ManageUser();
 		manageUser.hasCookie(request, response);
 		if(manageUser.isLogged(request)) {
+			//statistic
 			UserDAO userDAO = new UserDAO();
 			statistics.put("userCount", userDAO.getAll().size());
 			DocumentDAO documentDAO = new DocumentDAO();
@@ -44,8 +50,16 @@ public class AdministrationServlet extends HttpServlet {
 			getSizeFolder(Constant.STORAGE_ROOT_DIRECTORY, Constant.STORAGE_ROOT_FOLDER);
 			getSizeFolder(Constant.STORAGE_DOCUMENT_DIRECTORY, Constant.STORAGE_DOCUMENT_FOLDER);
 			getSizeFolder(Constant.STORAGE_INDEX_DIRECTORY, Constant.STORAGE_INDEX_FOLDER);
-			
 			request.setAttribute("statistics", statistics);
+			
+			//schedule
+			SourceDAO sourceDAO = new SourceDAO();
+			request.setAttribute("sources", sourceDAO.getAll());
+			ConfigurationDAO configurationDAO = new ConfigurationDAO();
+			String configuration = configurationDAO.getByKey("schedule").getValue();
+			Map<String, Object> configurations = new Gson().fromJson(configuration, HashMap.class);
+			request.setAttribute("scheduleConfiguration", configurations);
+			
 			request.getRequestDispatcher("/jsp/administration.jsp").forward(request, response);
 		}
 		else {
