@@ -91,6 +91,7 @@ public class AdministrationIndexerWebSocket extends WebSocket implements Observe
 			Map<String, Object> message = new HashMap<String, Object>();
 			message.put("type", "rebuildIndexAccept");
 			message.put("accept", true);
+			message.put("notifications", new Notification("info", "Index "+ rebuildIndexName +" is rebuilding."));
 			sendMessage(new Gson().toJson(message), session);
 			
 			switch(indexName) {
@@ -109,7 +110,7 @@ public class AdministrationIndexerWebSocket extends WebSocket implements Observe
 			Map<String, Object> message = new HashMap<String, Object>();
 			message.put("type", "rebuildIndexAccept");
 			message.put("accept", false);
-			message.put("notifications", new Notification("warning", "Index "+ rebuildIndexName +" is already in rebuilding."));
+			message.put("notifications", new Notification("warning", "Index "+ rebuildIndexName +" is already rebuilding."));
 			sendMessage(new Gson().toJson(message), session);
 		}
 	}

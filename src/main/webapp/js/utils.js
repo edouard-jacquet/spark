@@ -314,6 +314,7 @@ function waitWebSocketIsReady(callback) {
 function closeWebSocket() {
 	_WEBSOCKET_.onclose = function() {};
 	_WEBSOCKET_.close();
+	_WEBSOCKET_ = null;
 }
 
 /* ============================== *\

@@ -25,7 +25,7 @@
 					</table>
 				</div>
 				<div class='column small-12'>
-					<span id='indexer-left' class='indexer-left'>00:00:00</span>
+					<span id='indexer-left' class='indexer-left label label--warning'>00:00:00</span>
 					<div id='indexer-progresscontainer' class='indexer-progresscontainer progress-container'>
 						<div id='indexer-progress' class='indexer-progress progress-bar progress-bar--warning progress-bar--striped' style='width:0%'>0%</div>
 					</div>
