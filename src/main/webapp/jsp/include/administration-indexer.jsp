@@ -24,6 +24,8 @@
 						</tbody>
 					</table>
 				</div>
+			</div>
+			<div class='row'>
 				<div class='column small-12'>
 					<span id='indexer-left' class='indexer-left label label--warning'>00:00:00</span>
 					<div id='indexer-progresscontainer' class='indexer-progresscontainer progress-container'>
