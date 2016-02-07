@@ -9,8 +9,8 @@ public class WebSocketConfigurator extends ServerEndpointConfig.Configurator {
 	
 	@Override
 	public void modifyHandshake(ServerEndpointConfig serverEndPointConfig, HandshakeRequest handshakeRequest, HandshakeResponse handshakeResponse) {
-		HttpSession httpSession = (HttpSession) handshakeRequest.getHttpSession();
-		serverEndPointConfig.getUserProperties().put(HttpSession.class.getName(),  httpSession);
+		/*HttpSession httpSession = (HttpSession) handshakeRequest.getHttpSession();
+		serverEndPointConfig.getUserProperties().put(HttpSession.class.getName(),  httpSession);*/
 	}
 	
 }

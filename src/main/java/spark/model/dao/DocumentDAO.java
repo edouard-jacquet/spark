@@ -55,4 +55,22 @@ public class DocumentDAO extends Dao<Document> {
 		return resultSize;
 	}
 	
+	public List<String> document_non_presents(String chaine_id){
+		String[] tab = chaine_id.split(",");
+		String req = "SELECT nom_colonne FROM (";
+			for(int i=0; i< tab.length; i++){
+			
+				if(i==0)
+					req += "SELECT '"+tab[i]+"' AS nom_colonne UNION ALL ";
+				else if(i == tab.length-1)
+					req += "SELECT '"+tab[i]+"' ";
+				else
+					req += "SELECT '"+tab[i]+"' UNION ALL ";
+			}
+			
+		req += ") vals WHERE nom_colonne NOT IN (SELECT DOCUMENT_ATTACHMENT FROM spark_document)";
+		
+		return (List<String>) entityManager.createNativeQuery(req).getResultList();
+	}
+	
 }

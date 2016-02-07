@@ -5,6 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.jboss.logging.Logger;
+import org.quartz.SchedulerException;
+
+import spark.model.manager.scheduler.*;
 
 import spark.Constant;
 
@@ -30,6 +33,12 @@ public class ApplicationDeployer extends Deployer {
 		createDirectory(Constant.STORAGE_TEMPORARY_DIRECTORY, Constant.STORAGE_TEMPORARY_FOLDER);
 		createDirectory(Constant.STORAGE_INDEX_DIRECTORY, Constant.STORAGE_INDEX_FOLDER);
 		createDirectory(Constant.STORAGE_DOCUMENT_DIRECTORY, Constant.STORAGE_DOCUMENT_FOLDER);
+		/*try {
+			ManageScheduler.initScheduler();
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		System.out.println("----------");
 		System.out.println("--------------- APPLICATION DEPLOY END ----------");

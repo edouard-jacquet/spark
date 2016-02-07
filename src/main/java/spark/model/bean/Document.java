@@ -56,7 +56,7 @@ public class Document {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "DOCUMENT_ID")
+	@Column(name = "ID")
 	@DocumentId
 	private long id;
 	
@@ -88,13 +88,20 @@ public class Document {
 	@FieldBridge(impl = PdfBridge.class)
 	private String attachment;
 	
-	@Column(name = "DOCUMENT_PUBLICATIONDATE", nullable = false)
-	@Field(index = Index.YES, store = Store.YES, analyze = Analyze.NO)
-	@DateBridge(resolution = Resolution.YEAR)
+	@Column(name = "DOCUMENT_PUBLICATIONDATE", nullable = true)
 	private Date publicationDate;
 	
-	@Column(name = "DOCUMENT_UPDATEDATE", nullable = false)
+	/*
+	 * @Field(index = Index.YES, store = Store.YES, analyze = Analyze.NO)
+	@DateBridge(resolution = Resolution.YEAR)
+
+	 */
+	
+	@Column(name = "DOCUMENT_UPDATEDATE", nullable = true)
 	private Date updateDate;
+	
+	@Column(name = "DOCUMENT_ID", nullable = false)
+	private String DocumentId;
 	
 	@ManyToMany
 	@JoinTable(name = "SPARK_DOCUMENTAUTHOR",
@@ -120,6 +127,14 @@ public class Document {
 	
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public void setDocumentId(String _docid){
+		this.DocumentId = _docid;
+	}
+	
+	public String getDocumentId(){
+		return this.DocumentId;
 	}
 	
 	public String getSummary() {

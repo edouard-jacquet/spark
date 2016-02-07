@@ -46,7 +46,7 @@ public final class Constant {
 	   => STORAGE
 	\* ============================== */
 	// root
-	public static final String ROOT_FOLDER = Constant.class.getResource("/").getPath().substring(0, Constant.class.getResource("/").getPath().indexOf("WEB-INF"));	
+	public static final String ROOT_FOLDER = "C:/Users/Sylvain/workspace-ee/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/spark/";	
 	// private storage
 	public static final String STORAGE_ROOT_DIRECTORY = "storage";
 	public static final String STORAGE_ROOT_FOLDER = Constant.ROOT_FOLDER + Constant.STORAGE_ROOT_DIRECTORY +"/";
