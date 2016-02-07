@@ -67,8 +67,10 @@ public class AdministrationSyncWebSocket extends WebSocket implements Observer {
 			if("launch".equals(request.get("action")))
 					UpdateLibraryJob.execute();
 
-			if("save".equals(request.get("action")))
+			if("save".equals(request.get("action"))){
 				System.out.println("save");
+				System.out.println("message "+message);
+			}
 
 		//}
 	}

@@ -52,7 +52,7 @@
 														<td><c:out value="${source.name}"/></td>
 														<td class='text-right'>
 															<c:choose>
-																<c:when test="${fn:contains(scheduleConfiguration['sources'], source.id +'.0')}">
+																<c:when test="${source.active == 1}">
 																	<input id='schedule-source${source.id}' class='schedule-source switch switch--primary' type='checkbox' name='source${source.id}' checked/>
 																</c:when>
 																<c:otherwise>

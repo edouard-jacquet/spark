@@ -22,6 +22,9 @@ public class Source {
 	@Column(name = "SOURCE_LOCATION", length = 400)
 	private String location;
 	
+	@Column(name = "SOURCE_ACTIVE", length = 1)
+	private int active;
+	
 	
 	public long getId() {
 		return id;
@@ -41,6 +44,14 @@ public class Source {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int _active) {
+		this.active = _active;
 	}
 
 }
