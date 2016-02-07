@@ -128,7 +128,7 @@ public class UpdateLibraryJob implements Job {
 
 								 spark.model.bean.Document doc = new spark.model.bean.Document();
 								   doc.setAttachment(encode(m3.group(1)));
-								   doc.setDocumentId(m3.group(1));
+								   doc.setDocumentRef(m3.group(1));
 								  // doc.setTitle(m2.group(1).replace("<i>","").replace("</i>","").substring(0, 160));
 								   doc.setSummary(m2.group(1).replace("<i>","").replace("</i>",""));
 								   doc.setSource(source_aclweb);
@@ -147,7 +147,7 @@ public class UpdateLibraryJob implements Job {
 							spark.model.bean.Document new_doc = liste_doc.get(docs_non_present.get(k));
 							//doc_dao.create(new_doc);
 							System.out.println("creation  "+new_doc.getAttachment());
-							dowloadFile("https://aclweb.org/anthology/"+lettres[i]+"/"+lettres[i]+num_ttl+"/"+new_doc.getDocumentId()+".pdf", new_doc.getAttachment());
+							dowloadFile("https://aclweb.org/anthology/"+lettres[i]+"/"+lettres[i]+num_ttl+"/"+new_doc.getDocumentRef()+".pdf", new_doc.getAttachment());
 						}
 				    }
 
@@ -210,7 +210,7 @@ public class UpdateLibraryJob implements Job {
 								   doc.setAttachment(encode(node.getChildText("id", ns)));
 								   doc.setTitle(title);
 								   doc.setSummary(node.getChildText("summary", ns));
-								   doc.setDocumentId(node.getChildText("id", ns));
+								   doc.setDocumentRef(node.getChildText("id", ns));
 								  // doc.setPublicationDate(new Date(node.getChildText("published", ns)));
 								  //  doc.setUpdateDate(new Date(node.getChildText("updated", ns)));
 								   doc.setSource(source_arxiv);
@@ -227,8 +227,8 @@ public class UpdateLibraryJob implements Job {
 						for(int k=0; k < docs_non_present.size(); k++){
 							spark.model.bean.Document new_doc = liste_doc.get(docs_non_present.get(k));
 							doc_dao.create(new_doc);
-							System.out.println(new_doc.getDocumentId()+".pdf");
-							dowloadFile(new_doc.getDocumentId().replace("http://arxiv.org/abs/", "http://arxiv.org/pdf/")+".pdf", new_doc.getAttachment());
+							System.out.println(new_doc.getDocumentRef()+".pdf");
+							dowloadFile(new_doc.getDocumentRef().replace("http://arxiv.org/abs/", "http://arxiv.org/pdf/")+".pdf", new_doc.getAttachment());
 						}
 
 						
