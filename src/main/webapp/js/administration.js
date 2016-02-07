@@ -86,7 +86,19 @@ $(document).ready(function() {
 			function() {},
 			function() {},
 			function() {
-				_WEBSOCKET_.send('{"action":"save"}');
+				var data ="{";
+				data += '"action":"save",';
+				data += '"config":"{active:'+$('#schedule-active').prop( "checked")+', trigger:\''+$('.form__control').val()+'\'}",';
+				var sources = $('.schedule-source');
+				
+				for(var i=0; i < sources.length; i++){
+					//alert($("#schedule-"+$(sources.get(i)).attr('name')).prop("checked"));
+					data += '"'+$(sources.get(i)).attr('name')+'":'+$("#schedule-"+$(sources.get(i)).attr('name')).prop("checked")+",";
+				}
+				
+				data = data.substring(0, data.length-1)
+				data +="}";
+				_WEBSOCKET_.send(data);
 			}
 		);
 	});
