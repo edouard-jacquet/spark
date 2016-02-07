@@ -47,13 +47,16 @@ public class DatabaseDeployer extends Deployer {
 		SourceDAO sourceDAO = new SourceDAO();
 		if(sourceDAO.getAll().size() == 0) {
 			String[][] sources = {
-				{"personal", ""}
+				{"personal", "", "1"},
+				{"aclweb", "", "1"},
+				{"arxiv", "", "1"}
 			};
 			
 			for(String[] entry : sources) {
 				Source source = new Source();
 				source.setName(entry[0]);
 				source.setLocation(entry[1]);
+				source.setActive(Integer.parseInt(entry[2]));
 				sourceDAO.create(source);
 			}
 			

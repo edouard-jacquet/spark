@@ -61,13 +61,21 @@ public class UpdateLibraryJob implements Job {
 	}
 	
 	private static void sync() throws NoSuchAlgorithmException{
-		/*try {
-			sync_aclweb();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		sync_arxiv();
+		SourceDAO source_dao = new SourceDAO();
+		spark.model.bean.Source source_acl = source_dao.getByName("aclweb");
+		spark.model.bean.Source source_arxiv = source_dao.getByName("arxiv");
+		
+		if(source_acl.getActive() == 1){
+			try {
+				sync_aclweb();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(source_arxiv.getActive() == 1)
+			sync_arxiv();
 		
 	}
 	
@@ -118,23 +126,27 @@ public class UpdateLibraryJob implements Job {
 				    		Matcher m4 = p4.matcher(line);
 				    		
 				    		if(m2.find() && m3.find() && m4.find()){
+				    			
+				    			String title = m2.group(1).replace("<i>","").replace("</i>","");
+				    			if(title.length() > 200)
+				    				title = title.substring(0,199);
 				    		
-				    			System.out.println("Auteurs : "+m4.group(1));
+				    			/*System.out.println("Auteurs : "+m4.group(1));
 				    			System.out.println("Attachenement : "+encode(m3.group(1)));
-				    			System.out.println("Title : "+m2.group(1).replace("<i>","").replace("</i>",""));
+				    			System.out.println("Title : "+title);
 				    			System.out.println("Summary : "+m2.group(1).replace("<i>","").replace("</i>",""));
-				    			System.out.println("doc id "+m3.group(1));
+				    			System.out.println("doc id "+m3.group(1));*/
 				    			
 
 								 spark.model.bean.Document doc = new spark.model.bean.Document();
 								   doc.setAttachment(encode(m3.group(1)));
 								   doc.setDocumentRef(m3.group(1));
-								  // doc.setTitle(m2.group(1).replace("<i>","").replace("</i>","").substring(0, 160));
+								   doc.setTitle(title);
 								   doc.setSummary(m2.group(1).replace("<i>","").replace("</i>",""));
 								   doc.setSource(source_aclweb);
 								   
-								  /* liste_doc.put(encode(m3.group(1)), doc);
-								   liste_attachement += encode(m3.group(1))+",";*/
+								   liste_doc.put(encode(m3.group(1)), doc);
+								   liste_attachement += encode(m3.group(1))+",";
 
 				    		}
 				    	}
@@ -145,7 +157,7 @@ public class UpdateLibraryJob implements Job {
 					
 					    for(int k=0; k < docs_non_present.size(); k++){
 							spark.model.bean.Document new_doc = liste_doc.get(docs_non_present.get(k));
-							//doc_dao.create(new_doc);
+							doc_dao.create(new_doc);
 							System.out.println("creation  "+new_doc.getAttachment());
 							dowloadFile("https://aclweb.org/anthology/"+lettres[i]+"/"+lettres[i]+num_ttl+"/"+new_doc.getDocumentRef()+".pdf", new_doc.getAttachment());
 						}
