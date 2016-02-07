@@ -56,7 +56,7 @@ public class Document {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "DOCUMENT_ID")
 	@DocumentId
 	private long id;
 	
@@ -100,8 +100,8 @@ public class Document {
 	@Column(name = "DOCUMENT_UPDATEDATE", nullable = true)
 	private Date updateDate;
 	
-	@Column(name = "DOCUMENT_ID", nullable = false)
-	private String DocumentId;
+	@Column(name = "DOCUMENT_REF", nullable = true)
+	private String DocumentRef;
 	
 	@ManyToMany
 	@JoinTable(name = "SPARK_DOCUMENTAUTHOR",
@@ -129,12 +129,12 @@ public class Document {
 		this.title = title;
 	}
 	
-	public void setDocumentId(String _docid){
-		this.DocumentId = _docid;
+	public void setDocumentRef(String _docid){
+		this.DocumentRef = _docid;
 	}
 	
-	public String getDocumentId(){
-		return this.DocumentId;
+	public String getDocumentRef(){
+		return this.DocumentRef;
 	}
 	
 	public String getSummary() {
