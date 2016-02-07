@@ -25,6 +25,7 @@ import spark.model.bean.Source;
 import spark.model.connection.Database;
 import spark.model.dao.DocumentDAO;
 import spark.model.dao.SourceDAO;
+import spark.model.indexer.DocumentIndexer;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
