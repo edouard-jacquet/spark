@@ -8,7 +8,23 @@
   <description>RI Project</description>
   
   <dependencies>
-  
+  <!-- Scheduler -->
+	  <dependency>
+	    <groupId>org.quartz-scheduler</groupId>
+	    <artifactId>quartz</artifactId>
+	    <version>2.2.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.quartz-scheduler</groupId>
+	    <artifactId>quartz-jobs</artifactId>
+	    <version>2.2.2</version>
+	</dependency>
+	<dependency>
+		<groupId>jdom</groupId>
+		<artifactId>jdom</artifactId>
+		<version>1.1</version>
+	</dependency>
+
   	<!-- Servlet -->
 	<dependency>
 		<groupId>javax.servlet</groupId>

@@ -63,6 +63,34 @@ $(document).ready(function() {
 		);
 	});
 	
+	$('#schedule-launch').bind('click', function(event) {
+		event.preventDefault();
+		var trigger = $(this);
+		
+		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/schedule",
+			function() {},
+			function() {},
+			function() {},
+			function() {
+				_WEBSOCKET_.send('{"action":"launch"}');
+			}
+		);
+	});
+	
+	$('#schedule-save').bind('click', function(event) {
+		event.preventDefault();
+		var trigger = $(this);
+		
+		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/schedule",
+			function() {},
+			function() {},
+			function() {},
+			function() {
+				_WEBSOCKET_.send('{"action":"save"}');
+			}
+		);
+	});
+	
 });
 
 /* ============================== *\
