@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.codehaus.jettison.json.JSONException;
 import org.jboss.logging.Logger;
 import org.quartz.SchedulerException;
 
@@ -24,7 +25,7 @@ public class ApplicationDeployer extends Deployer {
 		return APPLICATIONDEPLOYER;
 	}
 	
-	public void execute() {
+	public void execute()  {
 		System.out.println("----------");
 		System.out.println("--------------- APPLICATION DEPLOY START ----------");
 		System.out.println("----------");
@@ -33,12 +34,14 @@ public class ApplicationDeployer extends Deployer {
 		createDirectory(Constant.STORAGE_TEMPORARY_DIRECTORY, Constant.STORAGE_TEMPORARY_FOLDER);
 		createDirectory(Constant.STORAGE_INDEX_DIRECTORY, Constant.STORAGE_INDEX_FOLDER);
 		createDirectory(Constant.STORAGE_DOCUMENT_DIRECTORY, Constant.STORAGE_DOCUMENT_FOLDER);
-		/*try {
+		try {
 			ManageScheduler.initScheduler();
 		} catch (SchedulerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}catch ( JSONException e){
+			
+		}
 		
 		System.out.println("----------");
 		System.out.println("--------------- APPLICATION DEPLOY END ----------");

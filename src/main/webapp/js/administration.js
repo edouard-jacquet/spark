@@ -70,7 +70,7 @@ $(document).ready(function() {
 		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/schedule",
 			function() {},
 			function() {},
-			function() {},
+			scheduleMessage,
 			function() {
 				_WEBSOCKET_.send('{"action":"launch"}');
 			}
@@ -84,7 +84,7 @@ $(document).ready(function() {
 		openWebSocket("ws://localhost:8080"+ _JAVA_context +"/administration/schedule",
 			function() {},
 			function() {},
-			function() {},
+			scheduleMessage,
 			function() {
 				var data ="{";
 				data += '"action":"save",';
@@ -170,6 +170,34 @@ function rebuildIndexError() {
 
 function rebuildIndexOpen(event) {
 	
+}
+
+function scheduleMessage(event){
+	var response = JSON.parse(event.data);
+	
+	switch(response.type) {
+		case 'saveAccept':
+			$('#notifications').css('display', 'none').empty();
+			displayNotifications([response.notifications]);
+			$('#notifications').slideDown(500);
+			
+			$('#indexer-progress').css('width', 0).html('0%').addClass('active');
+			$('#indexer-left').css('display', 'inline-block').html('--:--:--');
+			$('#indexer-progresscontainer').css('display', 'block');
+			
+			break;
+			
+		case 'schedulerLauch':
+			$('#notifications').css('display', 'none').empty();
+			displayNotifications([response.notifications]);
+			$('#notifications').slideDown(500);
+			
+			$('#indexer-progress').css('width', 0).html('0%').addClass('active');
+			$('#indexer-left').css('display', 'inline-block').html('--:--:--');
+			$('#indexer-progresscontainer').css('display', 'block');
+			
+			break;
+	}
 }
 
 function rebuildIndexMessage(event) {
