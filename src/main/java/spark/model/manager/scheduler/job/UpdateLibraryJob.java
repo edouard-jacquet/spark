@@ -1,6 +1,7 @@
 package spark.model.manager.scheduler.job;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,8 +10,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
@@ -21,8 +26,13 @@ import java.util.regex.Pattern;
 import javax.persistence.EntityManager;
 
 import spark.Constant;
+import spark.controller.service.security.Hash;
+import spark.model.bean.Author;
+import spark.model.bean.Document;
 import spark.model.bean.Source;
 import spark.model.connection.Database;
+import spark.model.dao.AuthorDAO;
+import spark.model.dao.ConfigurationDAO;
 import spark.model.dao.DocumentDAO;
 import spark.model.dao.SourceDAO;
 import spark.model.indexer.DocumentIndexer;
@@ -30,7 +40,8 @@ import spark.model.indexer.DocumentIndexer;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.jdom.*;
 import org.jdom.input.*;
 import org.jdom.filter.*;
@@ -54,37 +65,45 @@ public class UpdateLibraryJob implements Job {
 
 			try {
 				sync();
-			} catch (NoSuchAlgorithmException e) {
+			} catch (NoSuchAlgorithmException | JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
 	}
 	
-	private static void sync() throws NoSuchAlgorithmException{
+	private static void sync() throws NoSuchAlgorithmException, JSONException{
+		ConfigurationDAO config_dao = new ConfigurationDAO();
 		SourceDAO source_dao = new SourceDAO();
-		spark.model.bean.Source source_acl = source_dao.getByName("aclweb");
-		spark.model.bean.Source source_arxiv = source_dao.getByName("arxiv");
+		JSONObject config = new JSONObject(config_dao.getByKey("schedule").getValue());
+		String sheluder_isactif = config.getString("active");
 		
-		if(source_acl.getActive() == 1){
-			try {
-				sync_aclweb();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if(sheluder_isactif == "true"){
+			spark.model.bean.Source source_acl = source_dao.getByName("aclweb");
+			spark.model.bean.Source source_arxiv = source_dao.getByName("arxiv");
+			
+			if(source_acl.getActive() == 1){
+				try {
+					sync_aclweb();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			
+			if(source_arxiv.getActive() == 1)
+				sync_arxiv();
 		}
-		
-		if(source_arxiv.getActive() == 1)
-			sync_arxiv();
 		
 	}
 	
 	private static void sync_aclweb() throws IOException{
 		String[] lettres = {"J","Q","P","E","N","D","K","S","A","W","C","H","I","L","Y","O","T"};
 		SourceDAO source_dao = new SourceDAO();
-		Source source_aclweb = source_dao.getByName("aclweb");
 		DocumentDAO doc_dao =  new DocumentDAO();
+		AuthorDAO authorDAO =  new AuthorDAO();
+		Source source_aclweb = source_dao.getByName("aclweb");
+		
 		EntityManager em = Database.getInstance().getConnection();
 		
 		// TODO Auto-generated method stub
@@ -103,7 +122,6 @@ public class UpdateLibraryJob implements Job {
 					num_ttl = annee.toString();
 				}else
 					num_ttl = num.toString();
-				System.out.println("https://aclweb.org/anthology/"+lettres[i]+"/"+lettres[i]+num_ttl+"/");
 				try{
 					
 					URL url = new URL("https://aclweb.org/anthology/"+lettres[i]+"/"+lettres[i]+num_ttl+"/");
@@ -131,14 +149,7 @@ public class UpdateLibraryJob implements Job {
 				    			String title = m2.group(1).replace("<i>","").replace("</i>","");
 				    			if(title.length() > 200)
 				    				title = title.substring(0,199);
-				    		
-				    			/*System.out.println("Auteurs : "+m4.group(1));
-				    			System.out.println("Attachenement : "+encode(m3.group(1)));
-				    			System.out.println("Title : "+title);
-				    			System.out.println("Summary : "+m2.group(1).replace("<i>","").replace("</i>",""));
-				    			System.out.println("doc id "+m3.group(1));*/
-				    			
-
+				    						    			
 								 spark.model.bean.Document doc = new spark.model.bean.Document();
 								   doc.setAttachment(encode(m3.group(1)));
 								   doc.setDocumentRef(m3.group(1));
@@ -146,9 +157,20 @@ public class UpdateLibraryJob implements Job {
 								   doc.setSummary(m2.group(1).replace("<i>","").replace("</i>",""));
 								   doc.setSource(source_aclweb);
 								   
+								   if(!m4.group(1).isEmpty()){
+										for(String name : m4.group(1).toLowerCase().split(";")) {
+											Author author = authorDAO.getByName(name);
+											if(author == null) {
+												author = new Author();
+												author.setName(name);
+												author = authorDAO.create(author);
+											}
+											doc.getAuthors().add(author);
+										}
+								   }
+									
 								   liste_doc.put(encode(m3.group(1)), doc);
 								   liste_attachement += encode(m3.group(1))+",";
-
 				    		}
 				    	}
 				    }
@@ -159,7 +181,6 @@ public class UpdateLibraryJob implements Job {
 					    for(int k=0; k < docs_non_present.size(); k++){
 							spark.model.bean.Document new_doc = liste_doc.get(docs_non_present.get(k));
 							doc_dao.create(new_doc);
-							System.out.println("creation  "+new_doc.getAttachment());
 							dowloadFile("https://aclweb.org/anthology/"+lettres[i]+"/"+lettres[i]+num_ttl+"/"+new_doc.getDocumentRef()+".pdf", new_doc.getAttachment());
 						}
 				    }
@@ -172,7 +193,6 @@ public class UpdateLibraryJob implements Job {
 		}
 	}
 	
-	
 	private static void sync_arxiv() throws NoSuchAlgorithmException{
 		
 		String[] categories = {"cs"};
@@ -181,6 +201,7 @@ public class UpdateLibraryJob implements Job {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		SourceDAO source_dao = new SourceDAO();
 		DocumentDAO doc_dao =  new DocumentDAO();
+		AuthorDAO authorDAO =  new AuthorDAO();
 		Source source_arxiv = source_dao.getByName("arxiv");
 		EntityManager em = Database.getInstance().getConnection();
 		
@@ -201,8 +222,6 @@ public class UpdateLibraryJob implements Job {
 					url = new URL("http://export.arxiv.org/api/query?search_query="+categories[i]+"&start="+start+"&max_results=100");
 					URLConnection conn = url.openConnection();
 					BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					System.out.println("req");
-
 						
 						SAXBuilder sxb = new SAXBuilder();
 						Namespace ns = Namespace.getNamespace("http://www.w3.org/2005/Atom");
@@ -226,6 +245,23 @@ public class UpdateLibraryJob implements Job {
 								   doc.setDocumentRef(node.getChildText("id", ns));
 								  // doc.setPublicationDate(new Date(node.getChildText("published", ns)));
 								  //  doc.setUpdateDate(new Date(node.getChildText("updated", ns)));
+								   if(!node.getChildText("author", ns).isEmpty()){
+									   List liste_auteurs = node.getChildren("author", ns);
+									   
+									   for (int k = 0; k < liste_auteurs.size(); k++) {
+										 
+										   Element aut_obj = (Element) liste_auteurs.get(k);
+											String name = aut_obj.getChildText("name", ns);
+											Author author = authorDAO.getByName(name);
+											if(author == null) {
+												author = new Author();
+												author.setName(name);
+												author = authorDAO.create(author);
+											}
+											doc.getAuthors().add(author);
+										}
+								   }
+								   
 								   doc.setSource(source_arxiv);
 								   liste_doc.put(encode(node.getChildText("id", ns)), doc);
 								  
@@ -240,8 +276,7 @@ public class UpdateLibraryJob implements Job {
 						for(int k=0; k < docs_non_present.size(); k++){
 							spark.model.bean.Document new_doc = liste_doc.get(docs_non_present.get(k));
 							doc_dao.create(new_doc);
-							System.out.println(new_doc.getDocumentRef()+".pdf");
-							dowloadFile(new_doc.getDocumentRef().replace("http://arxiv.org/abs/", "http://arxiv.org/pdf/")+".pdf", new_doc.getAttachment());
+							dowloadFile(new_doc.getDocumentRef().replace("http://arxiv.org/abs/", "http://arxiv.org/pdf/")+".pdf", new_doc.getAttachment()+".pdf");
 						}
 
 						
@@ -268,7 +303,7 @@ public class UpdateLibraryJob implements Job {
 		String FileName = u.getFile();
 		FileName = FileName.substring(FileName.lastIndexOf('/') + 1);
 		
-		FileOutputStream WritenFile = new FileOutputStream(Constant.STORAGE_DOCUMENT_FOLDER+non_fichier+".pdf");
+		FileOutputStream WritenFile = new FileOutputStream(Constant.STORAGE_DOCUMENT_FOLDER+non_fichier);
 		byte[]buff = new byte[1024];
 		int l = in.read(buff);
 		while(l>0)

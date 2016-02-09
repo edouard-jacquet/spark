@@ -1,6 +1,7 @@
 package spark.controller.websocket;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,9 +16,17 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.jboss.logging.Logger;
 
 import com.google.gson.Gson;
+
+import spark.model.bean.Configuration;
+import spark.model.bean.Notification;
+import spark.model.bean.Source;
+import spark.model.dao.ConfigurationDAO;
+import spark.model.dao.SourceDAO;
 import spark.model.manager.ManageUser;
 import spark.model.manager.scheduler.job.*;
 
@@ -60,16 +69,52 @@ public class AdministrationSyncWebSocket extends WebSocket implements Observer {
 	@OnMessage
 	public void receiveMessage(String message, Session session) {
 		//ManageUser manageUser = new ManageUser();
+		ConfigurationDAO config_dao = new ConfigurationDAO();
+		SourceDAO source_dao = new SourceDAO();
+		List<Source> sources = source_dao.getAll();
 		
 		//if(manageUser.isLogged(httpSession)) {
 			Map<String, String> request = messageDecode(message);
 	
-			if("launch".equals(request.get("action")))
+			if("launch".equals(request.get("action"))){
+					Map<String, Object> user_message = new HashMap<String, Object>();
+					user_message.put("type", "schedulerLauch");
+					user_message.put("accept", true);
+					user_message.put("notifications", new Notification("info", "Schedule is launch."));
+					sendMessage(new Gson().toJson(user_message), session);
+					
 					UpdateLibraryJob.execute();
-
-			if("save".equals(request.get("action"))){
-				System.out.println("save");
-				System.out.println("message "+message);
+					
+			}else if("save".equals(request.get("action"))){
+				try {
+					JSONObject obj = new JSONObject(message);
+					Configuration ligne_config = config_dao.getByKey("schedule");
+					ligne_config.setValue(obj.get("config").toString());
+					config_dao.update(ligne_config);
+					
+					for(int i=0; i < sources.size(); i++){
+						if(sources.get(i).getId() > 2){
+							Source source_obj = sources.get(i);
+							if(obj.get("source"+source_obj.getId()).toString() == "true")
+								source_obj.setActive(1);
+							else
+								source_obj.setActive(0);
+							source_dao.update(source_obj);
+						}
+					}
+					
+					Map<String, Object> user_message = new HashMap<String, Object>();
+					user_message.put("type", "saveAccept");
+					user_message.put("accept", true);
+					user_message.put("notifications", new Notification("info", "Current configuration is save."));
+					sendMessage(new Gson().toJson(user_message), session);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 			}
 
 		//}
