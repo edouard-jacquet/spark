@@ -30,10 +30,11 @@ import spark.model.dao.SourceDAO;
 import spark.model.manager.ManageUser;
 import spark.model.manager.scheduler.job.*;
 
-@ServerEndpoint(value = "/administration/schedule", configurator = WebSocketConfigurator.class)
+//@ServerEndpoint(value = "/administration/schedule", configurator = WebSocketConfigurator.class)
+@ServerEndpoint(value = "/administration/schedule")
 public class AdministrationSyncWebSocket extends WebSocket implements Observer {
 	
-	private HttpSession httpSession;
+	//private HttpSession httpSession;
 	private static String rebuildIndexName = null;
 	private static AtomicBoolean rebuildIndexExecuted = new AtomicBoolean(false);
 	
@@ -42,24 +43,24 @@ public class AdministrationSyncWebSocket extends WebSocket implements Observer {
 		logger = Logger.getLogger(this.getClass().getName());
 	}
 	
-	/*@Override
+	@Override
 	public void open(Session session) {
 		sessions.add(session);
-		logger.debug("Connection is opened by session "+ session.getId());
+		//logger.debug("Connection is opened by session "+ session.getId());
 	}
 	
 	@OnOpen
 	public void open(Session session, EndpointConfig endPointConfig) {
 		sessions.add(session);
-		httpSession = (HttpSession) endPointConfig.getUserProperties().get(HttpSession.class.getName());
-		logger.debug("Connection is opened by session "+ httpSession.getId());
+		//httpSession = (HttpSession) endPointConfig.getUserProperties().get(HttpSession.class.getName());
+		//logger.debug("Connection is opened by session "+ httpSession.getId());
 	}
 	
 	@OnClose
 	public void close(Session session) {
 		sessions.remove(session);
-		logger.debug("Connection is closed by session "+ httpSession.getId());
-	}*/
+		//logger.debug("Connection is closed by session "+ httpSession.getId());
+	}
 	
 	@OnError
 	public void error(Throwable error) {
@@ -123,18 +124,6 @@ public class AdministrationSyncWebSocket extends WebSocket implements Observer {
 	@Override
 	public void update(Observable observable, Object message) {
 		sendAllMessage(new Gson().toJson(message));
-	}
-
-	@Override
-	public void open(Session session) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void close(Session session) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }
