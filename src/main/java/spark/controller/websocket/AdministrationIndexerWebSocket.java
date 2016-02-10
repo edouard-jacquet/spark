@@ -25,10 +25,11 @@ import spark.model.indexer.DocumentIndexer;
 import spark.model.indexer.SuggestionIndexer;
 import spark.model.manager.ManageUser;
 
-@ServerEndpoint(value = "/administration/indexer", configurator = WebSocketConfigurator.class)
+//@ServerEndpoint(value = "/administration/indexer", configurator = WebSocketConfigurator.class)
+@ServerEndpoint(value = "/administration/indexer")
 public class AdministrationIndexerWebSocket extends WebSocket implements Observer {
 	
-	private HttpSession httpSession;
+	//private HttpSession httpSession;
 	private static String rebuildIndexName = null;
 	private static AtomicBoolean rebuildIndexExecuted = new AtomicBoolean(false);
 	
@@ -46,14 +47,14 @@ public class AdministrationIndexerWebSocket extends WebSocket implements Observe
 	@OnOpen
 	public void open(Session session, EndpointConfig endPointConfig) {
 		sessions.add(session);
-		httpSession = (HttpSession) endPointConfig.getUserProperties().get(HttpSession.class.getName());
-		logger.debug("Connection is opened by session "+ httpSession.getId());
+		//httpSession = (HttpSession) endPointConfig.getUserProperties().get(HttpSession.class.getName());
+		//logger.debug("Connection is opened by session "+ httpSession.getId());
 	}
 	
 	@OnClose
 	public void close(Session session) {
 		sessions.remove(session);
-		logger.debug("Connection is closed by session "+ httpSession.getId());
+		//logger.debug("Connection is closed by session "+ httpSession.getId());
 	}
 	
 	@OnError
@@ -65,14 +66,14 @@ public class AdministrationIndexerWebSocket extends WebSocket implements Observe
 	public void receiveMessage(String message, Session session) {
 		ManageUser manageUser = new ManageUser();
 		
-		if(manageUser.isLogged(httpSession)) {
+		//if(manageUser.isLogged(httpSession)) {
 			Map<String, String> request = messageDecode(message);
 			
 			if("rebuildIndex".equals(request.get("action"))) {
 				String indexName = request.get("index");
 				rebuildIndex(indexName, session);
 			}
-		}
+		//}
 	}
 
 	@Override

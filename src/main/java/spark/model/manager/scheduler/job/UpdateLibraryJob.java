@@ -181,7 +181,7 @@ public class UpdateLibraryJob implements Job {
 					    for(int k=0; k < docs_non_present.size(); k++){
 							spark.model.bean.Document new_doc = liste_doc.get(docs_non_present.get(k));
 							doc_dao.create(new_doc);
-							dowloadFile("https://aclweb.org/anthology/"+lettres[i]+"/"+lettres[i]+num_ttl+"/"+new_doc.getDocumentRef()+".pdf", new_doc.getAttachment());
+							dowloadFile("https://aclweb.org/anthology/"+lettres[i]+"/"+lettres[i]+num_ttl+"/"+new_doc.getDocumentRef()+".pdf", new_doc.getAttachment()+".pdf");
 						}
 				    }
 
