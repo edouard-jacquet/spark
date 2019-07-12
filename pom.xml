@@ -6,92 +6,78 @@
   <packaging>war</packaging>
   <name>Spark</name>
   <description>RI Project</description>
+  
   <dependencies>
+  <!-- Scheduler -->
+	  <dependency>
+	    <groupId>org.quartz-scheduler</groupId>
+	    <artifactId>quartz</artifactId>
+	    <version>2.2.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.quartz-scheduler</groupId>
+	    <artifactId>quartz-jobs</artifactId>
+	    <version>2.2.2</version>
+	</dependency>
+	<dependency>
+		<groupId>jdom</groupId>
+		<artifactId>jdom</artifactId>
+		<version>1.1</version>
+	</dependency>
+
+  	<!-- Servlet -->
 	<dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
 		<version>3.1.0</version>
 	</dependency>
 	<dependency>
+		<groupId>javax.servlet.jsp</groupId>
+		<artifactId>jsp-api</artifactId>
+		<version>2.2</version>
+	</dependency>
+	
+	<!-- WebSocket -->
+	<dependency>
+		<groupId>javax.websocket</groupId>
+		<artifactId>javax.websocket-api</artifactId>
+		<version>1.1</version>
+	</dependency>
+	
+	<!-- Jstl -->
+	<dependency>
 		<groupId>jstl</groupId>
 		<artifactId>jstl</artifactId>
 		<version>1.2</version>
 	</dependency>
+	
+	<!-- MySQL -->
 	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
 		<version>5.1.37</version>
 	</dependency>
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-entitymanager</artifactId>
-		<version>5.0.2.Final</version>
-	</dependency>
-	<dependency>
-		<groupId>dom4j</groupId>
-		<artifactId>dom4j</artifactId>
-		<version>1.6.1</version>
-	</dependency>
-	<dependency>
-		<groupId>jaxen</groupId>
-		<artifactId>jaxen</artifactId>
-		<version>1.1.6</version>
-	</dependency>
+
+	<!-- Hibernate -->
 	<dependency>
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-core</artifactId>
-		<version>5.0.2.Final</version>
+		<version>5.0.3.Final</version>
 	</dependency>
 	<dependency>
-		<groupId>antlr</groupId>
-		<artifactId>antlr</artifactId>
-		<version>2.7.7</version>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+		<version>5.0.3.Final</version>
 	</dependency>
+	
+	<!-- Hibernate Search -->
 	<dependency>
-		<groupId>org.jboss</groupId>
-		<artifactId>jandex</artifactId>
-		<version>2.0.0.Final</version>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-search-orm</artifactId>
+		<version>5.5.0.Final</version>
 	</dependency>
-	<dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.12</version>
-	</dependency>
-	<dependency>
-		<groupId>org.hibernate.javax.persistence</groupId>
-		<artifactId>hibernate-jpa-2.1-api</artifactId>
-		<version>1.0.0.Final</version>
-	</dependency>
-	<dependency>
-		<groupId>org.javassist</groupId>
-		<artifactId>javassist</artifactId>
-		<version>3.20.0-GA</version>
-	</dependency>
-	<dependency>
-		<groupId>log4j</groupId>
-		<artifactId>log4j</artifactId>
-		<version>1.2.17</version>
-	</dependency>
-	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>slf4j-api</artifactId>
-		<version>1.7.12</version>
-	</dependency>
-	<dependency>
-		<groupId>org.jboss.logging</groupId>
-		<artifactId>jboss-logging</artifactId>
-		<version>3.3.0.Final</version>
-	</dependency>
-	<dependency>
-		<groupId>org.jboss.logging</groupId>
-		<artifactId>jboss-logging-annotations</artifactId>
-		<version>2.0.1.Final</version>
-	</dependency>
-	<dependency>
-		<groupId>org.jboss.spec.javax.transaction</groupId>
-		<artifactId>jboss-transaction-api_1.2_spec</artifactId>
-		<version>1.0.0.Final</version>
-	</dependency>
+	
+	<!-- Lucene -->
 	<dependency>
 		<groupId>org.apache.lucene</groupId>
 		<artifactId>lucene-core</artifactId>
@@ -107,16 +93,28 @@
 		<artifactId>lucene-queryparser</artifactId>
 		<version>5.3.1</version>
 	</dependency>
-	<dependency>
-		<groupId>org.apache.lucene</groupId>
-		<artifactId>lucene-core</artifactId>
-		<version>5.3.1</version>
-	</dependency>
+	
+	<!-- Mahout -->
 	<dependency>
 		<groupId>org.apache.mahout</groupId>
 		<artifactId>mahout-core</artifactId>
 		<version>0.9</version>
 	</dependency>
+	
+	<!-- Gson -->
+	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.4</version>
+	</dependency>
+	
+	<!-- IText -->
+	<dependency>
+		<groupId>com.itextpdf</groupId>
+		<artifactId>itextpdf</artifactId>
+		<version>5.5.8</version>
+	</dependency>
+
   </dependencies>
   <build>
   	<plugins>

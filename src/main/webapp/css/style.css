@@ -1,0 +1,117 @@
+/* ============================== *\
+   => STYLE
+\* ============================== */
+
+
+@font-face {
+	font-family: 'chemistry';
+	src: url('font/chemistry.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'chemistry-bubble';
+	src: url('font/chemistry-bubble.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+	position: relative;
+}
+
+/*
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+*/
+
+.body {
+	/*padding-top: 68px;*/
+	padding-bottom: 100px;
+	overflow: auto;
+}
+
+.footer {
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+.navigation-bar {
+	border-radius: 0;
+}
+
+.navigation-bar__brand {
+	font-family: 'chemistry';
+	font-size: 24px;
+	letter-spacing: 3px;
+}
+
+.navigation-bar__nav .bootypo {
+	font-size: 28px;
+	margin-top: -9px;
+	margin-right: 5px;
+}
+
+.row--bottom-5 {
+	margin-bottom: 5px;
+}
+
+.row--bottom-10 {
+	margin-bottom: 10px;
+}
+
+.row--bottom-15 {
+	margin-bottom: 15px;
+}
+
+.row--bottom-20 {
+	margin-bottom: 20px;
+}
+
+.row--bottom-25 {
+	margin-bottom: 25px;
+}
+
+.row--bottom-30 {
+	margin-bottom: 30px;
+}
+
+.row--bottom-35 {
+	margin-bottom: 35px;
+}
+
+.row--bottom-40 {
+	margin-bottom: 40px;
+}
+
+.progress-container,
+.loader {
+	display: none;
+}
+
+.form__help {
+	margin-top: 4px;
+}
+
+.form__help > .bootypo {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+@media only screen and (min-width: 640px) {
+	.navigation-bar__nav {
+		margin-right: 15px;
+	}
+}

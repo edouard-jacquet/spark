@@ -1,0 +1,74 @@
+/* ============================== *\
+   => HOME
+\* ============================== */
+
+
+@keyframes spark {
+	50%{
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 -1px 0 rgba(0, 0, 0, 0.5);
+	}
+	75% {
+		text-shadow: 0 0 5px rgba(251, 255, 220, 1), 0 -1px 0 rgba(0, 0, 0, 0.5), 0 0 30px rgba(251, 255, 220, 1);
+	}
+	100% {
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 -1px 0 rgba(0, 0, 0, 0.5);
+	}
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: #000;
+	background-image: url('../image/chemistry.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.body {
+	padding-top: 10%;
+	padding-bottom: 0;
+	overflow: visible;
+}
+
+.letter {
+	font-family: 'chemistry-bubble';
+	font-size: 58px;
+	letter-spacing: 10px;
+	color: rgba(0, 0, 0, 0.2);
+	text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 -1px 0 rgba(0, 0, 0, 0.5);
+	animation: spark 2s linear 0s infinite;
+}
+
+@media only screen and (min-width: 640px) {
+	.letter {
+		font-size: 96px;
+	}
+}
+
+.search {
+	position: relative;
+}
+
+.search .suggestions {
+	width: 100%;
+	position: absolute;
+	top: 34px;
+	left: 0;
+	display: none;
+	margin-bottom: 0;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
+	z-index: 1001;
+}
+
+.search .suggestions > .list-group__item {
+	margin-bottom: 0;
+	padding: 6px 12px;
+	border: none;
+}
+
+.search .suggestions > .list-group__item:first-child {
+	border-radius: 0;
+}
