@@ -7,17 +7,28 @@
 	<persistence-unit name="DB">
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-			<!-- Configuration de la  BDD -->
+			
+			<!-- Logging -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			
+			<!-- Connection -->
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8889/spark" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/spark" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="root" />
-			<!-- Spécifie le 'dialecte' SQL utilisé pour communiquer avec la BDD -->
+			<property name="javax.persistence.jdbc.password" value="" />
+			
+			<!-- Dialect -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<!-- Indique a Hibernate de (re-)créer la BDD au lancement de l'application -->
+			
+			<!-- Mode (validate, update, create, create-drop) -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<!-- Hibernate Search -->
+			<property name="hibernate.search.lucene_version" value="5.3.1"/>
+			<property name="hibernate.search.default.directory_provider" value="ram"/>
+			<property name="hibernate.search.Suggestion.directory_provider" value="spark.model.store.FileStore"/>
+			<property name="hibernate.search.Document.directory_provider" value="spark.model.store.FileStore"/>
 		</properties>
 	</persistence-unit>
 </persistence>
